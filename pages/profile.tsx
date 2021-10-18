@@ -5,7 +5,7 @@ import { stringParameter, oStringParameter, dispatch } from "../utils";
 import { Profile } from "socialvoid";
 import { useSnackbar } from "notistack";
 
-export default function Profile() {
+export default function Profile_() {
   const router = useRouter();
   const snackbar = useSnackbar();
   const [profile, setProfile] = useState<Profile>();
