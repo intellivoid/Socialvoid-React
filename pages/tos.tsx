@@ -4,11 +4,9 @@ import Button from "@mui/material/Button";
 import Checkbox from "@mui/material/Checkbox";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import CircularProgress from "@mui/material/CircularProgress";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import { useSnackbar } from "notistack";
-import { client } from "../client";
-import { runOnClient, pushWithQuery, dispatch } from "../utils";
+import { pushWithQuery, dispatch } from "../utils";
 
 export default function TOS() {
   const router = useRouter();

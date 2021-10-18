@@ -7,8 +7,6 @@ import Grid from "@mui/material/Grid";
 import Link from "@mui/material/Link";
 import Box from "@mui/material/Box";
 import { useSnackbar } from "notistack";
-import { errors } from "socialvoid";
-import { client } from "../client";
 import { dispatch } from "../utils";
 
 export default function Authenticate() {
