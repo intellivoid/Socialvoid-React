@@ -4,41 +4,47 @@ import Button from "@mui/material/Button";
 import Checkbox from "@mui/material/Checkbox";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
+import CircularProgress from "@mui/material/CircularProgress";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import { useSnackbar } from "notistack";
 import { client } from "../client";
-import { runOnClient, pushWithQuery, returnIfAuthenticated } from "../utils";
+import { runOnClient, pushWithQuery, dispatch } from "../utils";
 
 export default function TOS() {
   const router = useRouter();
+  const snackbar = useSnackbar();
+
+  const [tosId, setTosId] = useState("");
   const [text, setText] = useState("Loading...");
   const [disabled, setDisabled] = useState(true);
-  const [tosId, setTosId] = useState("");
-  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
 
     if (data.get("acceptTermOfServices") != "on") {
-      enqueueSnackbar("You must read and accept.", { preventDuplicate: true });
+      snackbar.enqueueSnackbar("You must read and accept.", {
+        variant: "info",
+        preventDuplicate: true,
+      });
       return;
     }
 
-    closeSnackbar();
+    snackbar.closeSnackbar();
     pushWithQuery(router, "/signup", { tosId: data.get("tosId") });
   };
 
-  runOnClient(async () => {
-    if (await returnIfAuthenticated(router)) {
-      return;
-    }
-
-    const { id, text } = await client.help.getTermsOfService();
-    setTosId(id);
-    setText(text);
-    setDisabled(false);
-  });
+  dispatch(
+    async (client) => {
+      const { id, text } = await client.help.getTermsOfService();
+      setTosId(id);
+      setText(text);
+      setDisabled(false);
+    },
+    router,
+    snackbar,
+    { requireToBeNotAuthenticated: true }
+  );
 
   return (
     <Box

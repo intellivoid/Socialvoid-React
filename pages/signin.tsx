@@ -9,17 +9,11 @@ import Box from "@mui/material/Box";
 import { useSnackbar } from "notistack";
 import { errors } from "socialvoid";
 import { client } from "../client";
-import { runOnClient, returnIfAuthenticated } from "../utils";
+import { dispatch } from "../utils";
 
 export default function Authenticate() {
   const router = useRouter();
-  const { enqueueSnackbar } = useSnackbar();
-
-  runOnClient(async () => {
-    if (await returnIfAuthenticated(router)) {
-      return;
-    }
-  });
+  const snackbar = useSnackbar();
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault(); // prevent the browser from reloading the page
@@ -29,27 +23,27 @@ export default function Authenticate() {
       password = data.get("password") as string;
 
     if (!username || !password) {
-      enqueueSnackbar("Invalid username or password.", {
+      snackbar.enqueueSnackbar("Invalid username or password.", {
+        variant: "warning",
         preventDuplicate: true,
       });
       return;
     }
 
-    try {
-      await client.newSession();
-      await client.session.authenticateUser(username, password);
-    } catch (err) {
-      if (err instanceof errors.TwoFactorAuthenticationRequired) {
-        enqueueSnackbar("OTP is unsupported.");
-      } else {
-        enqueueSnackbar("An unexpected error occurred.");
-      }
-
-      return;
-    }
-
-    router.push("/");
+    dispatch(
+      async (client) => {
+        await client.newSession();
+        await client.session.authenticateUser(username, password);
+        router.push("/");
+      },
+      router,
+      snackbar
+    );
   };
+
+  dispatch((_) => {}, router, snackbar, {
+    requireToBeNotAuthenticated: true,
+  });
 
   return (
     <Box

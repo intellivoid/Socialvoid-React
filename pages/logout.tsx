@@ -7,7 +7,7 @@ export default function Logout() {
 
   runOnClient(() => {
     logout();
-    router.push("../");
+    router.push("/");
   });
 
   return <></>;
