@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
+import Image from "next/image";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Link from "@mui/material/Link";
@@ -40,7 +41,7 @@ export default function Index() {
       }}
     >
       <Typography variant="h1">{greeting}</Typography>
-      <img src={src} />
+      <Image src={src} alt="Profile picture" />
       <Link href="/logout">Logout</Link>
     </Box>
   );
