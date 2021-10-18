@@ -9,6 +9,7 @@ import { runOnClient } from "../utils";
 export default function Index() {
   const router = useRouter();
   const [greeting, setGreeting] = useState("");
+  const [src, setSrc] = useState("");
 
   runOnClient(async () => {
     if (!(await authenticated())) {
@@ -18,6 +19,14 @@ export default function Index() {
 
     const me = await client.network.getMe();
     setGreeting(`Hello ${me.name}!`);
+
+    const profile = await client.network.getProfile();
+
+    const document = profile.display_picture_sizes[0].document;
+
+    const blob = (await client.cdn.download(document, true)) as Blob;
+
+    setSrc(URL.createObjectURL(blob));
   });
 
   return (
@@ -30,6 +39,7 @@ export default function Index() {
       }}
     >
       <Typography variant="h1">{greeting}</Typography>
+      <img src={src} />
       <Link href="/logout">Logout</Link>
     </Box>
   );

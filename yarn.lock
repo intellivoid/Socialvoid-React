@@ -3044,10 +3044,10 @@ slash@^3.0.0:
   resolved "https://registry.yarnpkg.com/slash/-/slash-3.0.0.tgz#6539be870c165adbd5240220dbe361f1bc4d4634"
   integrity sha512-g9Q1haeby36OSStwb4ntCGGGaKsaVSjQ68fBxoQcutl5fS1vuY18H3wSt3jFyFtrkx+Kz0V1G85A4MyAdDMi2Q==
 
-socialvoid@0.0.0-alpha.1:
-  version "0.0.0-alpha.1"
-  resolved "https://registry.yarnpkg.com/socialvoid/-/socialvoid-0.0.0-alpha.1.tgz#462f4515c55655e6db901fa28d95888326bc3eed"
-  integrity sha512-eBXCZxLfJKm4i8AEX94d+nNGSW4V4fS/x2ZY/tEvEctu8w9nV975uYrFvUiJuJVqhIRtpdo6xNwVUa5oxwOTTA==
+socialvoid@0.0.0-alpha.3:
+  version "0.0.0-alpha.3"
+  resolved "https://registry.yarnpkg.com/socialvoid/-/socialvoid-0.0.0-alpha.3.tgz#84b5bafc1ca93fc23411801deba60b350e138a10"
+  integrity sha512-Ljznz3Yp+1Sf3hRQnMzNhVevyhPz9PUi13h/SNNRqgu2ttAnE7ee+PQJjGaArYvVjfTScWezLz36tPw5O82paQ==
   dependencies:
     form-data "^4.0.0"
     node-fetch "^2.6.5"
