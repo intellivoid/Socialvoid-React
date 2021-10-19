@@ -11,10 +11,11 @@ export const dispatch = (
   options?: {
     requireToBeAuthenticated?: boolean;
     requireToBeNotAuthenticated?: boolean;
-  },
+  }
 ) => {
   if (
-    options?.requireToBeAuthenticated && options.requireToBeNotAuthenticated
+    options?.requireToBeAuthenticated &&
+    options.requireToBeNotAuthenticated
   ) {
     throw new Error("Invalid options");
   }
@@ -22,7 +23,7 @@ export const dispatch = (
   runOnClient(async () => {
     try {
       if (options?.requireToBeAuthenticated) {
-        if (!await authenticated()) {
+        if (!(await authenticated())) {
           router.push("/signin");
           return;
         }
@@ -36,10 +37,15 @@ export const dispatch = (
       await func(client);
     } catch (err) {
       if (err instanceof errors.SocialvoidError) {
-        snackbar.enqueueSnackbar(err.errorMessage, {
-          variant: "error",
-          preventDuplicate: true,
-        });
+        snackbar.enqueueSnackbar(
+          err.errorMessage.endsWith(".")
+            ? err.errorMessage
+            : err.errorMessage + ".",
+          {
+            variant: "error",
+            preventDuplicate: true,
+          }
+        );
       } else {
         console.error(err);
         snackbar.enqueueSnackbar("An unexpected error occurred.", {
