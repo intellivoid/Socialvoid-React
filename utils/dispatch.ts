@@ -3,6 +3,7 @@ import { NextRouter } from "next/router";
 import { ProviderContext } from "notistack";
 import { authenticated, client } from "../client";
 import { runOnClient } from "./client";
+import { setLoading } from "../stores";
 
 export const dispatch = (
   func: (client: Client) => Promise<void> | void,
@@ -11,6 +12,7 @@ export const dispatch = (
   options?: {
     requireToBeAuthenticated?: boolean;
     requireToBeNotAuthenticated?: boolean;
+    stopLoading?: boolean;
   }
 ) => {
   if (
@@ -35,6 +37,10 @@ export const dispatch = (
       }
 
       await func(client);
+
+      if (options?.stopLoading) {
+        setLoading(false);
+      }
     } catch (err) {
       if (err instanceof errors.SocialvoidError) {
         snackbar.enqueueSnackbar(

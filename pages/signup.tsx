@@ -89,6 +89,7 @@ export default function SignUp() {
     snackbar,
     {
       requireToBeNotAuthenticated: true,
+      stopLoading: true,
     }
   );
 
