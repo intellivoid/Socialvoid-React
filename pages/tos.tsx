@@ -45,14 +45,7 @@ export default function TOS() {
   );
 
   return (
-    <Box
-      sx={{
-        marginTop: 8,
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-      }}
-    >
+    <>
       <Typography component="h1" variant="h5" hidden={disabled}>
         Socialvoid - Terms of Service
       </Typography>
@@ -79,6 +72,6 @@ export default function TOS() {
           Next
         </Button>
       </Box>
-    </Box>
+    </>
   );
 }
