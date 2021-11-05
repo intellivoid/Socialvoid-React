@@ -17,13 +17,12 @@ import {
 export default function SignUp() {
   const router = useRouter();
   const snackbar = useSnackbar();
-  const [tosId, setTosId] = React.useState<string>();
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
 
-    let tosId = data.get("tosId"),
+    let tosId = router.query.tosId as string | undefined,
       username = data.get("username"),
       password = data.get("password"),
       firstName = data.get("firstName"),
@@ -80,12 +79,10 @@ export default function SignUp() {
 
       console.log(tosId);
 
-      // if (typeof tosId === "undefined") {
-      //   router.push("/tos");
-      //   return;
-      // }
-
-      // setTosId(String(tosId));
+      if (typeof tosId === "undefined") {
+        router.push("/tos");
+        return;
+      }
     },
     router,
     snackbar,
@@ -96,7 +93,6 @@ export default function SignUp() {
 
   return (
     <form noValidate onSubmit={handleSubmit}>
-      <input type="hidden" id="tosId" name="tosId" value={tosId} />
       <TextField
         required
         fullWidth
