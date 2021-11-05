@@ -93,78 +93,47 @@ export default function SignUp() {
   );
 
   return (
-    <Box
-      sx={{
-        marginTop: 8,
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-      }}
-    >
-      <Typography component="h1" variant="h5">
-        Socialvoid - Sign Up
-      </Typography>
-      <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
-        <input type="hidden" id="tosId" name="tosId" value={tosId} />
-        <Grid container spacing={2}>
-          <Grid item xs={12} sm={6}>
-            <TextField
-              required
-              fullWidth
-              id="firstName"
-              label="First name"
-              name="firstName"
-              autoComplete="off"
-              autoFocus
-            />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <TextField
-              fullWidth
-              id="lastName"
-              label="Last name"
-              name="lastName"
-              autoComplete="off"
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              required
-              fullWidth
-              id="username"
-              label="Username"
-              name="username"
-              autoComplete="off"
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              required
-              fullWidth
-              id="password"
-              label="Password"
-              name="password"
-              type="password"
-              autoComplete="off"
-            />
-          </Grid>
-        </Grid>
-        <Button
-          type="submit"
-          fullWidth
-          variant="contained"
-          sx={{ mt: 3, mb: 2 }}
-        >
-          Sign Up
-        </Button>
-        <Grid container justifyContent="flex-end">
-          <Grid item>
-            <Link href="/signin" variant="body2">
-              Already have an account?
-            </Link>
-          </Grid>
-        </Grid>
-      </Box>
-    </Box>
+    <form noValidate onSubmit={handleSubmit}>
+      <input type="hidden" id="tosId" name="tosId" value={tosId} />
+      <TextField
+        required
+        fullWidth
+        id="firstName"
+        label="First name"
+        name="firstName"
+        autoComplete="off"
+        autoFocus
+      />
+      <TextField
+        fullWidth
+        id="lastName"
+        label="Last name"
+        name="lastName"
+        autoComplete="off"
+      />
+      <TextField
+        required
+        fullWidth
+        id="username"
+        label="Username"
+        name="username"
+        autoComplete="off"
+      />
+      <TextField
+        required
+        fullWidth
+        id="password"
+        label="Password"
+        name="password"
+        type="password"
+        autoComplete="off"
+      />
+      <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
+        Sign Up
+      </Button>
+      <Link href="/signin" variant="body2">
+        Already have an account?
+      </Link>
+    </form>
   );
 }
