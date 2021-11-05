@@ -6,14 +6,18 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import { useSnackbar } from "notistack";
-import { pushWithQuery, dispatch } from "../utils";
+import { pushWithQuery, dispatch, unparse } from "../utils";
+import { HelpDocument } from "socialvoid";
 
 export default function TOS() {
   const router = useRouter();
   const snackbar = useSnackbar();
 
-  const [tosId, setTosId] = useState("");
-  const [text, setText] = useState("Loading...");
+  const [document, setDocument] = useState<HelpDocument>({
+    id: "",
+    text: "Loading...",
+    entities: [],
+  });
   const [disabled, setDisabled] = useState(true);
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -34,9 +38,8 @@ export default function TOS() {
 
   dispatch(
     async (client) => {
-      const { id, text } = await client.help.getTermsOfService();
-      setTosId(id);
-      setText(text);
+      const document = await client.help.getTermsOfService();
+      setDocument(document);
       setDisabled(false);
     },
     router,
@@ -46,12 +49,14 @@ export default function TOS() {
 
   return (
     <>
-      <Typography component="h1" variant="h5" hidden={disabled}>
-        Socialvoid - Terms of Service
-      </Typography>
-      <p>{text}</p>
+      <Typography
+        variant="body1"
+        dangerouslySetInnerHTML={{
+          __html: unparse(document.text, document.entities),
+        }}
+      ></Typography>
       <Box component="form" noValidate sx={{ mt: 3 }} onSubmit={handleSubmit}>
-        <input type="hidden" name="tosId" value={tosId} />
+        <input type="hidden" name="tosId" value={document.id} />
         <FormControlLabel
           control={
             <Checkbox

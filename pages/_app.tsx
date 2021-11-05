@@ -1,10 +1,14 @@
 import { useMemo } from "react";
 import { AppProps } from "next/app";
-import useMediaQuery from "@mui/material/useMediaQuery";
-import CssBaseline from "@mui/material/CssBaseline";
-import Container from "@mui/material/Container";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
+import {
+  createTheme,
+  ThemeProvider,
+  useMediaQuery,
+  CssBaseline,
+  Container,
+} from "@mui/material";
 import { SnackbarProvider } from "notistack";
+import Header from "../components/Header";
 
 function App({ Component, pageProps }: AppProps) {
   const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
@@ -23,7 +27,7 @@ function App({ Component, pageProps }: AppProps) {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <SnackbarProvider>
-        <Container component="main" maxWidth="md" sx={{ mt: 3 }}>
+        <Container component="main" maxWidth="sm" sx={{ mt: 3 }}>
           <Component {...pageProps} />
         </Container>
       </SnackbarProvider>
