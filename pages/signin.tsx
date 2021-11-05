@@ -44,7 +44,7 @@ export default function Authenticate() {
   });
 
   return (
-    <>
+    <form noValidate onSubmit={handleSubmit}>
       <TextField
         required
         fullWidth
@@ -69,6 +69,6 @@ export default function Authenticate() {
       <Link href="/signup" variant="body2">
         Don’t have an account?
       </Link>
-    </>
+    </form>
   );
 }
