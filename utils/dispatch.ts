@@ -3,6 +3,7 @@ import { NextRouter } from "next/router";
 import { ProviderContext } from "notistack";
 import { client } from "../client";
 import { runOnClient } from "./client";
+import { SessionExpired } from "socialvoid/dist/errors";
 
 export const dispatch = (
   func: (client: Client) => Promise<void> | void,
@@ -33,10 +34,23 @@ export const dispatch = (
           return;
         }
       }
-
       await func(client);
     } catch (err) {
       if (err instanceof errors.SocialvoidError) {
+        if (
+          err instanceof errors.SessionExpired ||
+          err instanceof errors.SessionNotFound ||
+          err instanceof errors.BadSessionChallengeAnswer ||
+          err instanceof errors.InvalidSessionIdentification
+        ) {
+          client.deleteSession();
+          snackbar.enqueueSnackbar("Session expired.", {
+            variant: "error",
+            preventDuplicate: true,
+          });
+          return;
+        }
+
         snackbar.enqueueSnackbar(
           err.errorMessage.endsWith(".")
             ? err.errorMessage
