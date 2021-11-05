@@ -41,7 +41,6 @@ export default function Authenticate() {
 
   dispatch((_) => {}, router, snackbar, {
     requireToBeNotAuthenticated: true,
-    stopLoading: true,
   });
 
   return (
