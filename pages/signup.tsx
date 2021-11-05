@@ -110,6 +110,7 @@ export default function SignUp() {
         label="Last name"
         name="lastName"
         autoComplete="off"
+        sx={{ mt: 3 }}
       />
       <TextField
         required
@@ -118,6 +119,7 @@ export default function SignUp() {
         label="Username"
         name="username"
         autoComplete="off"
+        sx={{ mt: 3 }}
       />
       <TextField
         required
