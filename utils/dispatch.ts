@@ -1,7 +1,7 @@
 import { Client, errors } from "socialvoid";
 import { NextRouter } from "next/router";
 import { ProviderContext } from "notistack";
-import { authenticated, client } from "../client";
+import { client } from "../client";
 import { runOnClient } from "./client";
 
 export const dispatch = (
