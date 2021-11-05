@@ -78,12 +78,14 @@ export default function SignUp() {
     (_) => {
       const tosId = router.query.tosId;
 
-      if (typeof tosId === "undefined") {
-        router.push("/tos");
-        return;
-      }
+      console.log(tosId);
 
-      setTosId(String(tosId));
+      // if (typeof tosId === "undefined") {
+      //   router.push("/tos");
+      //   return;
+      // }
+
+      // setTosId(String(tosId));
     },
     router,
     snackbar,
@@ -129,6 +131,7 @@ export default function SignUp() {
         name="password"
         type="password"
         autoComplete="off"
+        sx={{ mt: 3 }}
       />
       <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
         Sign Up

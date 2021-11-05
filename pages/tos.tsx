@@ -41,7 +41,7 @@ export default function TOS() {
     },
     router,
     snackbar,
-    { requireToBeNotAuthenticated: true, stopLoading: true }
+    { requireToBeNotAuthenticated: true }
   );
 
   return (

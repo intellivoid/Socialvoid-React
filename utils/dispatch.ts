@@ -34,6 +34,7 @@ export const dispatch = (
           return;
         }
       }
+
       await func(client);
     } catch (err) {
       if (err instanceof errors.SocialvoidError) {
