@@ -28,7 +28,7 @@ export default function Index() {
     },
     router,
     snackbar,
-    { requireToBeAuthenticated: true, stopLoading: true }
+    { requireToBeAuthenticated: true }
   );
 
   return (
