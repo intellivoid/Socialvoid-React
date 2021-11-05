@@ -23,7 +23,7 @@ function App({ Component, pageProps }: AppProps) {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <SnackbarProvider>
-        <Container component="main" maxWidth="md">
+        <Container component="main" maxWidth="md" sx={{ mt: 3 }}>
           <Component {...pageProps} />
         </Container>
       </SnackbarProvider>
