@@ -1,7 +1,7 @@
 import { AppBar, Toolbar, Typography, AppBarProps } from "@mui/material"
 import HideOnScroll from "./HideOnScroll"
 
-export default function Bar(props: AppBarProps) {
+export default function Bar(props: AppBarProps & { routeTitle?: string }) {
   return (
     <HideOnScroll>
       <AppBar {...props} sx={{ userSelect: "none" }}>
@@ -9,13 +9,18 @@ export default function Bar(props: AppBarProps) {
           sx={{
             display: "flex",
             alignItems: "center",
-            justifyContent: "space-around",
+            justifyContent: "space-evenly",
             textAlign: "center",
           }}
         >
           <Typography variant="h6" component="div">
             Socialvoid
           </Typography>
+          {props.routeTitle ? (
+            <Typography variant="h6" component="div">
+              {props.routeTitle}
+            </Typography>
+          ) : undefined}
         </Toolbar>
       </AppBar>
     </HideOnScroll>

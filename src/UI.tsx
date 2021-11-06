@@ -1,4 +1,5 @@
 import { useMemo } from "react"
+import { useLocation } from "react-router"
 import {
   useMediaQuery,
   createTheme,
@@ -8,8 +9,10 @@ import {
 } from "@mui/material"
 import { SnackbarProvider } from "notistack"
 import { Bar } from "./components"
+import { titles } from "./Routes"
 
 export default function UI({ children }: any) {
+  const location = useLocation()
   const dark = useMediaQuery("(prefers-color-scheme: dark)")
 
   const theme = useMemo(
@@ -22,7 +25,7 @@ export default function UI({ children }: any) {
       <CssBaseline />
       <SnackbarProvider>
         <Container component="main" maxWidth="sm" sx={{ mt: 12 }}>
-          <Bar />
+          <Bar routeTitle={titles[location.pathname]} />
           {children}
         </Container>
       </SnackbarProvider>
