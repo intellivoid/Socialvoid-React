@@ -25,7 +25,7 @@ export default function ToS() {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
 
-    if (data.get("acceptTermOfServices") != "on") {
+    if (data.get("acceptTermOfServices") !== "on") {
       snackbar.enqueueSnackbar("You must read and accept.", {
         variant: "info",
         preventDuplicate: true,
