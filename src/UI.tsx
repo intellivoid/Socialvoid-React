@@ -7,7 +7,7 @@ import {
   Container,
 } from "@mui/material";
 import { SnackbarProvider } from "notistack";
-import Header from "./components/Header";
+import { Bar } from "./components";
 
 export default function UI({ children }: any) {
   const dark = useMediaQuery("(prefers-color-scheme: dark)");
@@ -21,8 +21,8 @@ export default function UI({ children }: any) {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <SnackbarProvider>
-        <Header />
         <Container component="main" maxWidth="sm" sx={{ mt: 12 }}>
+          <Bar />
           {children}
         </Container>
       </SnackbarProvider>

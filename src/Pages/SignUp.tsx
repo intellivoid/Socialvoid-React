@@ -23,7 +23,7 @@ export default function SignUp() {
     dispatch(
       async (client) => {
         if (!tosId || !username || !password || !firstName) {
-          snackbar.enqueueSnackbar("Got invalid inputs.", {
+          snackbar.enqueueSnackbar("Invalid inputs.", {
             variant: "warning",
             preventDuplicate: true,
           });
@@ -117,7 +117,7 @@ export default function SignUp() {
       <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
         Sign Up
       </Button>
-      <Link href="/signin" variant="body2">
+      <Link href="/signin" variant="body2" sx={{ float: "right" }}>
         Already have an account?
       </Link>
     </form>

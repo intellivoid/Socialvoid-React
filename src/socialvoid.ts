@@ -62,16 +62,13 @@ export const dispatch = async (
         }
       );
     } else {
-      switch ((err as Error).message) {
-        case "Session does not exist":
-          navigate("/signin");
-          return;
+      if (err instanceof Error) {
+        switch (err.message) {
+          case "Session does not exist":
+            navigate("/signin");
+            return;
+        }
       }
-
-      snackbar.enqueueSnackbar("An unexpected error occurred.", {
-        variant: "error",
-        preventDuplicate: true,
-      });
     }
   }
 };

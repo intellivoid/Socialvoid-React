@@ -38,17 +38,11 @@ export default function Home() {
         alt="Your profile photo"
         sx={{ width: 100, height: 100, mb: 3 }}
       />
-      <Typography component="h5" variant="h5">
-        {profile?.name}
-      </Typography>
-      <Typography variant="body1">
-        {profile?.biography || <code>No bio.</code>}
-      </Typography>
       <TextField
         required
         fullWidth
-        id="username"
-        label="Username"
+        id="name"
+        label="Name"
         name="username"
         autoComplete="off"
         autoFocus

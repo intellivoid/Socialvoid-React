@@ -64,7 +64,7 @@ export default function SignIn() {
       <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
         Sign In
       </Button>
-      <Link href="/signup" variant="body2">
+      <Link href="/signup" variant="body2" sx={{ float: "right" }}>
         Don’t have an account?
       </Link>
     </form>
