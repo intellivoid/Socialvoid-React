@@ -1,5 +1,5 @@
-import { AppBar, Toolbar, Typography, AppBarProps } from "@mui/material";
-import HideOnScroll from "./HideOnScroll";
+import { AppBar, Toolbar, Typography, AppBarProps } from "@mui/material"
+import HideOnScroll from "./HideOnScroll"
 
 export default function Bar(props: AppBarProps) {
   return (
@@ -19,5 +19,5 @@ export default function Bar(props: AppBarProps) {
         </Toolbar>
       </AppBar>
     </HideOnScroll>
-  );
+  )
 }

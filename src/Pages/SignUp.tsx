@@ -1,24 +1,24 @@
-import React from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import { useSnackbar } from "notistack";
-import { dispatch } from "../socialvoid";
-import { Button, TextField, Link } from "@mui/material";
-import { stringParameter, oStringParameter, validatePassword } from "../utils";
+import React from "react"
+import { useNavigate, useParams } from "react-router-dom"
+import { useSnackbar } from "notistack"
+import { dispatch } from "../socialvoid"
+import { Button, TextField, Link } from "@mui/material"
+import { stringParameter, oStringParameter, validatePassword } from "../utils"
 
 export default function SignUp() {
-  const navigate = useNavigate();
-  const snackbar = useSnackbar();
-  const params = useParams();
+  const navigate = useNavigate()
+  const snackbar = useSnackbar()
+  const params = useParams()
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
+    event.preventDefault()
+    const data = new FormData(event.currentTarget)
 
     let tosId = params.tosId,
       username = data.get("username"),
       password = data.get("password"),
       firstName = data.get("firstName"),
-      lastName = data.get("lastName");
+      lastName = data.get("lastName")
 
     dispatch(
       async (client) => {
@@ -26,21 +26,21 @@ export default function SignUp() {
           snackbar.enqueueSnackbar("Invalid inputs.", {
             variant: "warning",
             preventDuplicate: true,
-          });
-          return;
+          })
+          return
         }
 
-        const passwordValid = validatePassword(stringParameter(password));
+        const passwordValid = validatePassword(stringParameter(password))
 
         if (passwordValid !== true) {
           snackbar.enqueueSnackbar("The password " + passwordValid + ".", {
             variant: "info",
             preventDuplicate: true,
-          });
-          return;
+          })
+          return
         }
 
-        await client.newSession();
+        await client.newSession()
 
         await client.session.register(
           stringParameter(tosId),
@@ -48,33 +48,34 @@ export default function SignUp() {
           stringParameter(password),
           stringParameter(firstName),
           oStringParameter(lastName)
-        );
+        )
 
         await client.session.authenticateUser(
           username as string,
           password as string
-        );
+        )
 
         snackbar.enqueueSnackbar("Signed up successfully.", {
           variant: "success",
-        });
-        navigate("/");
+        })
+
+        navigate("/")
       },
       { navigate, snackbar }
-    );
-  };
+    )
+  }
 
   dispatch(
     (_) => {
-      const tosId = params.tosId;
+      const tosId = params.tosId
 
       if (typeof tosId === "undefined") {
-        navigate("/tos");
-        return;
+        navigate("/tos")
+        return
       }
     },
     { navigate, snackbar, requireToBeNotAuthenticated: true }
-  );
+  )
 
   return (
     <form noValidate onSubmit={handleSubmit}>
@@ -121,5 +122,5 @@ export default function SignUp() {
         Already have an account?
       </Link>
     </form>
-  );
+  )
 }

@@ -1,7 +1,7 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import UI from "./UI";
-import Pages from "./Pages";
+import React from "react"
+import ReactDOM from "react-dom"
+import UI from "./UI"
+import Pages from "./Pages"
 
 ReactDOM.render(
   <React.StrictMode>
@@ -10,4 +10,4 @@ ReactDOM.render(
     </UI>
   </React.StrictMode>,
   document.getElementById("root")
-);
+)
