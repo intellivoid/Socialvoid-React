@@ -17,6 +17,14 @@ class ToSC extends Component<
   RouteProps,
   { document: HelpDocument; disabled: boolean }
 > {
+  constructor(props: any) {
+    super(props)
+    this.state = {
+      document: { id: "", text: "Loading...", entities: [] },
+      disabled: true,
+    }
+  }
+
   render() {
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
       event.preventDefault()
