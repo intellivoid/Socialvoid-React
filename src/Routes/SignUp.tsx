@@ -68,9 +68,10 @@ export default function SignUp() {
   dispatch(
     (_) => {
       const tosId = params.tosId
+      console.log(params)
 
       if (typeof tosId === "undefined") {
-        navigate("/tos")
+        navigate("/tos", { replace: true })
         return
       }
     },

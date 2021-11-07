@@ -27,8 +27,6 @@ export const dispatch = async (
         return
       }
     } else if (opts?.requireToBeNotAuthenticated) {
-      console.log(1)
-      console.log(client.sessionExists)
       if (client.sessionExists) {
         navigate("/", { replace: true })
         return

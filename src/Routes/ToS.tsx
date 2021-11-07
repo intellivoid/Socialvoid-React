@@ -1,84 +1,94 @@
-import { useState } from "react"
-import Button from "@mui/material/Button"
-import Checkbox from "@mui/material/Checkbox"
-import Box from "@mui/material/Box"
-import Typography from "@mui/material/Typography"
-import FormControlLabel from "@mui/material/FormControlLabel"
+import { Component } from "react"
+import { useNavigate } from "react-router-dom"
+import {
+  Button,
+  Checkbox,
+  Box,
+  Typography,
+  FormControlLabel,
+} from "@mui/material"
 import { useSnackbar } from "notistack"
+import { HelpDocument } from "socialvoid"
 import { dispatch } from "../socialvoid"
 import { unparse, stringParameter } from "../utils"
-import { HelpDocument } from "socialvoid"
-import { useNavigate } from "react-router"
+import { RouteProps } from "../types"
+
+class _ToS extends Component<
+  RouteProps,
+  { document: HelpDocument; disabled: boolean }
+> {
+  render() {
+    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+      event.preventDefault()
+      const data = new FormData(event.currentTarget)
+
+      if (data.get("acceptTermOfServices") !== "on") {
+        this.props.snackbar.enqueueSnackbar("You must read and accept.", {
+          variant: "info",
+          preventDuplicate: true,
+        })
+        return
+      }
+
+      this.props.snackbar.closeSnackbar()
+
+      this.props.navigate(
+        "/signup?" + encodeURIComponent(stringParameter(data.get("tosId")!)),
+        { replace: true }
+      )
+    }
+
+    return (
+      <>
+        <Typography
+          variant="body1"
+          dangerouslySetInnerHTML={{
+            __html: unparse(
+              this.state.document.text,
+              this.state.document.entities
+            ),
+          }}
+        ></Typography>
+        <Box component="form" noValidate sx={{ mt: 3 }} onSubmit={handleSubmit}>
+          <input type="hidden" name="tosId" value={this.state.document.id} />
+          <FormControlLabel
+            control={
+              <Checkbox
+                name="acceptTermOfServices"
+                color="primary"
+                disabled={this.state.disabled}
+              />
+            }
+            label="I have read and accepted."
+          />
+          <Button
+            type="submit"
+            variant="contained"
+            disabled={this.state.disabled}
+            sx={{ mt: 3, mb: 2 }}
+            fullWidth
+          >
+            Next
+          </Button>
+        </Box>
+      </>
+    )
+  }
+
+  componentDidMount() {
+    dispatch(
+      async (client) => {
+        const document = await client.help.getTermsOfService()
+        this.setState({ document, disabled: false })
+      },
+      { ...this.props, requireToBeNotAuthenticated: true }
+    )
+  }
+}
 
 export default function ToS() {
   const navigate = useNavigate()
   const snackbar = useSnackbar()
 
-  const [document, setDocument] = useState<HelpDocument>({
-    id: "",
-    text: "Loading...",
-    entities: [],
-  })
-  const [disabled, setDisabled] = useState(true)
-
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
-    const data = new FormData(event.currentTarget)
-
-    if (data.get("acceptTermOfServices") !== "on") {
-      snackbar.enqueueSnackbar("You must read and accept.", {
-        variant: "info",
-        preventDuplicate: true,
-      })
-      return
-    }
-
-    snackbar.closeSnackbar()
-
-    navigate(
-      "/signup?" + encodeURIComponent(stringParameter(data.get("tosId")!))
-    )
-  }
-
-  dispatch(
-    async (client) => {
-      const document = await client.help.getTermsOfService()
-      setDocument(document)
-      setDisabled(false)
-    },
-    { navigate, snackbar, requireToBeNotAuthenticated: true }
-  )
-
-  return (
-    <>
-      <Typography
-        variant="body1"
-        dangerouslySetInnerHTML={{
-          __html: unparse(document.text, document.entities),
-        }}
-      ></Typography>
-      <Box component="form" noValidate sx={{ mt: 3 }} onSubmit={handleSubmit}>
-        <input type="hidden" name="tosId" value={document.id} />
-        <FormControlLabel
-          control={
-            <Checkbox
-              name="acceptTermOfServices"
-              color="primary"
-              disabled={disabled}
-            />
-          }
-          label="I have read and accepted."
-        />
-        <Button
-          type="submit"
-          variant="contained"
-          disabled={disabled}
-          sx={{ mt: 3, mb: 2 }}
-          fullWidth
-        >
-          Next
-        </Button>
-      </Box>
-    </>
-  )
+  return <_ToS navigate={navigate} snackbar={snackbar} />
 }
