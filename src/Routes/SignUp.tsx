@@ -6,55 +6,61 @@ import { RouteProps } from "../types"
 import { Password } from "../specifications"
 import { useLocation, useNavigate } from "react-router"
 import { useSnackbar } from "notistack"
+import { handleZodErrors } from "../utils"
 
 class SignUpC extends React.Component<RouteProps, {}> {
   submit(event: React.FormEvent<HTMLFormElement>) {
-    event.preventDefault()
-    const data = new FormData(event.currentTarget)
+    handleZodErrors(() => {
+      event.preventDefault()
+      const data = new FormData(event.currentTarget)
 
-    const params = z
-      .object({
-        tosId: z.string(),
-        username: z.string(),
-        password: Password,
-        firstName: z.string(),
-        lastName: z.string().optional(),
-      })
-      .parse({
-        tosId: this.props.query?.tosId,
-        username: data.get("username"),
-        password: data.get("password"),
-        firstName: data.get("firstName"),
-        lastName: data.get("lastName"),
-      })
-
-    dispatch(
-      async (client) => {
-        await client.newSession()
-
-        await client.session.register(
-          params.tosId,
-          params.username,
-          params.password,
-          params.firstName,
-          params.lastName
-        )
-
-        await client.session.authenticateUser(params.username, params.password)
-
-        this.props.snackbar.enqueueSnackbar("Signed up successfully.", {
-          variant: "success",
+      const params = z
+        .object({
+          tosId: z.string(),
+          username: z.string(),
+          password: Password,
+          firstName: z.string(),
+          lastName: z.string().optional(),
+        })
+        .parse({
+          tosId: this.props.query?.tosId,
+          username: data.get("username"),
+          password: data.get("password"),
+          firstName: data.get("firstName"),
+          lastName: data.get("lastName"),
         })
 
-        this.props.navigate("/", { replace: true })
-      },
-      { ...this.props }
-    )
+      dispatch(
+        async (client) => {
+          await client.newSession()
+
+          await client.session.register(
+            params.tosId,
+            params.username,
+            params.password,
+            params.firstName,
+            params.lastName
+          )
+
+          await client.session.authenticateUser(
+            params.username,
+            params.password
+          )
+
+          this.props.snackbar.enqueueSnackbar("Signed up successfully.", {
+            variant: "success",
+          })
+
+          this.props.navigate("/", { replace: true })
+        },
+        { ...this.props }
+      )
+    }, this.props)
   }
 
   render() {
     return (
-      <form noValidate onSubmit={this.submit}>
+      <form noValidate onSubmit={(event) => this.submit(event)}>
         <TextField
           required
           fullWidth
