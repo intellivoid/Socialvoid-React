@@ -13,7 +13,7 @@ import { dispatch } from "../socialvoid"
 import { unparse, stringParameter } from "../utils"
 import { RouteProps } from "../types"
 
-class _ToS extends Component<
+class ToSC extends Component<
   RouteProps,
   { document: HelpDocument; disabled: boolean }
 > {
@@ -90,5 +90,5 @@ export default function ToS() {
   const navigate = useNavigate()
   const snackbar = useSnackbar()
 
-  return <_ToS navigate={navigate} snackbar={snackbar} />
+  return <ToSC navigate={navigate} snackbar={snackbar} />
 }
