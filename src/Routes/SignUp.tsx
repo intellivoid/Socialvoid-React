@@ -16,10 +16,10 @@ class SignUpC extends React.Component<RouteProps, {}> {
 
       const params = z
         .object({
-          tosId: z.string(),
-          username: z.string(),
+          tosId: z.string().nonempty(),
+          username: z.string().nonempty(),
           password: Password,
-          firstName: z.string(),
+          firstName: z.string().nonempty(),
           lastName: z.string().optional(),
         })
         .parse({
