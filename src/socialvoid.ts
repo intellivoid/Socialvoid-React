@@ -1,22 +1,8 @@
 import { NavigateFunction } from "react-router-dom"
 import { ProviderContext } from "notistack"
-import { Client, Document, errors } from "socialvoid"
+import { Client, errors } from "socialvoid"
 
 export const client = new Client()
-
-export async function getDocumentSrc(document: Document) {
-  const cachedSrc = localStorage.getItem(document.id)
-
-  if (cachedSrc) {
-    return cachedSrc
-  }
-
-  const blob = await client.cdn.download(document, true)
-  const src = URL.createObjectURL(blob)
-
-  sessionStorage.setItem(document.id, src)
-  return src
-}
 
 export async function dispatch(
   func: (client: Client) => Promise<void> | void,

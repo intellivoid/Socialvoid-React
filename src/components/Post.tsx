@@ -6,7 +6,8 @@ import CardHeader from "@mui/material/CardHeader"
 import CardMedia from "@mui/material/CardMedia"
 import Typography from "@mui/material/Typography"
 import { Post as TypePost } from "socialvoid"
-import { dispatch, getDocumentSrc } from "../socialvoid"
+import { getDocument } from "../cache"
+import { dispatch } from "../socialvoid"
 
 export default class Post extends Component<
   { post: TypePost },
@@ -22,7 +23,7 @@ export default class Post extends Component<
       const attachmentSrcs = new Array<string>()
 
       for (const document of this.props.post.attachments) {
-        attachmentSrcs.push(await getDocumentSrc(document))
+        attachmentSrcs.push(await getDocument(document.id))
       }
 
       this.setState({ attachmentSrcs })
