@@ -1,0 +1,3 @@
+.Post:not(:last-child) {
+  border-bottom: none;
+}

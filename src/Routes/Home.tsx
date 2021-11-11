@@ -5,6 +5,7 @@ import { Post as TypePost } from "socialvoid"
 import { Post } from "../components"
 import { dispatch } from "../socialvoid"
 import { RouteProps } from "../types"
+import { notDeleted } from "../utils"
 
 class HomeC extends Component<RouteProps, { posts: TypePost[]; page: number }> {
   constructor(props: any) {
@@ -30,7 +31,7 @@ class HomeC extends Component<RouteProps, { posts: TypePost[]; page: number }> {
   render() {
     return (
       <>
-        {this.state.posts.map((post) => (
+        {this.state.posts.filter(notDeleted).map((post) => (
           <Post post={post} />
         ))}
       </>

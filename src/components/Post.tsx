@@ -5,12 +5,14 @@ import CardContent from "@mui/material/CardContent"
 import CardHeader from "@mui/material/CardHeader"
 import CardMedia from "@mui/material/CardMedia"
 import Typography from "@mui/material/Typography"
-import { Post as TypePost } from "socialvoid"
 import { getDocument } from "../cache"
 import { dispatch } from "../socialvoid"
+import { NotDeletedPost } from "../types"
+import { unparse } from "../utils"
+import "./Post.css"
 
 export default class Post extends Component<
-  { post: TypePost },
+  { post: NotDeletedPost },
   { attachmentSrcs: string[] }
 > {
   constructor(props: any) {
@@ -31,26 +33,32 @@ export default class Post extends Component<
   }
 
   render() {
+    const media =
+      this.props.post.attachments.length !== 0 ? (
+        <CardMedia component="img" image={this.state.attachmentSrcs[0]} />
+      ) : undefined
+
     return (
-      <Card variant="outlined" square>
+      <Card variant="outlined" square className="Post">
         <CardHeader
-          title={this.props.post.peer?.name}
+          title={this.props.post.peer.name}
           subheader={
             "@" +
-            this.props.post.peer?.username +
+            this.props.post.peer.username +
             " · " +
             moment(this.props.post.posted_timestamp * 1000).fromNow() +
             " with " +
             this.props.post.source
           }
         />
-        {this.props.post.attachments.length !== 0 ? (
-          <CardMedia component="img" image={this.state.attachmentSrcs[0]} />
-        ) : (
-          ""
-        )}
+        {media}
         <CardContent>
-          <Typography variant="body1">{this.props.post.text}</Typography>
+          <Typography
+            variant="body1"
+            dangerouslySetInnerHTML={{
+              __html: unparse(this.props.post.text, this.props.post.entities),
+            }}
+          ></Typography>
         </CardContent>
       </Card>
     )
