@@ -8,7 +8,7 @@ import { Password } from "../specifications"
 import { RouteProps } from "../types"
 import { handleZodErrors } from "../utils"
 
-class SignUpC extends React.Component<RouteProps, {}> {
+class Component extends React.Component<RouteProps> {
   submit(event: React.FormEvent<HTMLFormElement>) {
     handleZodErrors(() => {
       event.preventDefault()
@@ -132,5 +132,5 @@ export default function SignUp() {
     new URLSearchParams(useLocation().search).entries()
   )
 
-  return <SignUpC navigate={navigate} snackbar={snackbar} query={query} />
+  return <Component navigate={navigate} snackbar={snackbar} query={query} />
 }

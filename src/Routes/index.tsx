@@ -4,13 +4,6 @@ import SignIn from "./SignIn"
 import SignUp from "./SignUp"
 import ToS from "./ToS"
 
-export const titles: { [pathname: string]: string } = {
-  "/": "Home",
-  "/signin": "Sign In",
-  "/signup": "Sign Up",
-  "/tos": "ToS",
-}
-
 export default function Routes() {
   return (
     <S>

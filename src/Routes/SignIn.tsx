@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router"
 import { z } from "zod"
-import { Component } from "react"
+import React from "react"
 import Button from "@mui/material/Button"
 import Link from "@mui/material/Link"
 import TextField from "@mui/material/TextField"
@@ -10,7 +10,7 @@ import { Password } from "../specifications"
 import { RouteProps } from "../types"
 import { handleZodErrors } from "../utils"
 
-class SignInC extends Component<RouteProps> {
+class Component extends React.Component<RouteProps> {
   submit(event: React.FormEvent<HTMLFormElement>) {
     handleZodErrors(() => {
       event.preventDefault() // prevent the browser from reloading the page
@@ -86,5 +86,5 @@ export default function SignUp() {
   const navigate = useNavigate()
   const snackbar = useSnackbar()
 
-  return <SignInC navigate={navigate} snackbar={snackbar} />
+  return <Component navigate={navigate} snackbar={snackbar} />
 }

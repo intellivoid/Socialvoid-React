@@ -1,4 +1,4 @@
-import { Component } from "react"
+import React from "react"
 import { useNavigate } from "react-router-dom"
 import {
   Box,
@@ -13,7 +13,7 @@ import { dispatch } from "../socialvoid"
 import { RouteProps } from "../types"
 import { stringParameter, unparse } from "../utils"
 
-class ToSC extends Component<
+class Component extends React.Component<
   RouteProps,
   { document: HelpDocument; disabled: boolean }
 > {
@@ -98,5 +98,5 @@ export default function ToS() {
   const navigate = useNavigate()
   const snackbar = useSnackbar()
 
-  return <ToSC navigate={navigate} snackbar={snackbar} />
+  return <Component navigate={navigate} snackbar={snackbar} />
 }
