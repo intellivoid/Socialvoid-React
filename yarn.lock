@@ -10882,10 +10882,10 @@ snapdragon@^0.8.1:
     source-map-resolve "^0.5.0"
     use "^3.1.0"
 
-socialvoid@^0.0.0-alpha.7:
-  version "0.0.0-alpha.7"
-  resolved "https://registry.yarnpkg.com/socialvoid/-/socialvoid-0.0.0-alpha.7.tgz#524d93ca5fa6d4d422118c4f7bf971ff71cc5ad5"
-  integrity sha512-5S2d2GCBqO2IWSL4RA0eC2UDpsKYwWFQANcLL0jDodQUakfG2DJ3e5hV7FWW59fTRqYpQ9ykNOgjJWYmQlB8sQ==
+socialvoid@^0.0.0-alpha.8:
+  version "0.0.0-alpha.8"
+  resolved "https://registry.yarnpkg.com/socialvoid/-/socialvoid-0.0.0-alpha.8.tgz#89bab1b80f7760714dcc79b7ab80e874e34463bc"
+  integrity sha512-lMz1y6YBgJk7uO8ZfADUzDKulhagj2UBFyNDLiJSb5YGnKbz+xcLEB2WM+kPtxY633/7vEHw+5+kU0UJVilRhg==
   dependencies:
     form-data "^4.0.0"
     node-fetch "^2.6.5"
