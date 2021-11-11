@@ -58,6 +58,17 @@ class Component extends React.Component<RouteProps> {
     }, this.props)
   }
 
+  componentDidMount() {
+    dispatch(
+      () => {
+        if (!this.props.query?.tosId) {
+          this.props.navigate("/tos", { replace: true })
+        }
+      },
+      { ...this.props, requireToBeNotAuthenticated: true }
+    )
+  }
+
   render() {
     return (
       <form noValidate onSubmit={(event) => this.submit(event)}>
@@ -109,17 +120,6 @@ class Component extends React.Component<RouteProps> {
           Already have an account?
         </Link>
       </form>
-    )
-  }
-
-  componentDidMount() {
-    dispatch(
-      () => {
-        if (!this.props.query?.tosId) {
-          this.props.navigate("/tos", { replace: true })
-        }
-      },
-      { ...this.props, requireToBeNotAuthenticated: true }
     )
   }
 }

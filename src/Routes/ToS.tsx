@@ -1,12 +1,10 @@
 import React from "react"
 import { useNavigate } from "react-router-dom"
-import {
-  Box,
-  Button,
-  Checkbox,
-  FormControlLabel,
-  Typography,
-} from "@mui/material"
+import Box from "@mui/material/Box"
+import Button from "@mui/material/Button"
+import Checkbox from "@mui/material/Checkbox"
+import FormControlLabel from "@mui/material/FormControlLabel"
+import Typography from "@mui/material/Typography"
 import { useSnackbar } from "notistack"
 import { HelpDocument } from "socialvoid"
 import { dispatch } from "../socialvoid"
@@ -23,6 +21,16 @@ class Component extends React.Component<
       document: { id: "", text: "Loading...", entities: [] },
       disabled: true,
     }
+  }
+
+  componentDidMount() {
+    dispatch(
+      async (client) => {
+        const document = await client.help.getTermsOfService()
+        this.setState({ document, disabled: false })
+      },
+      { ...this.props, requireToBeNotAuthenticated: true }
+    )
   }
 
   render() {
@@ -80,16 +88,6 @@ class Component extends React.Component<
           </Button>
         </Box>
       </>
-    )
-  }
-
-  componentDidMount() {
-    dispatch(
-      async (client) => {
-        const document = await client.help.getTermsOfService()
-        this.setState({ document, disabled: false })
-      },
-      { ...this.props, requireToBeNotAuthenticated: true }
     )
   }
 }
