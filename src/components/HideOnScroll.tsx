@@ -1,4 +1,4 @@
-import { useScrollTrigger, Slide } from "@mui/material"
+import { Slide, useScrollTrigger } from "@mui/material"
 
 export default function HideOnScroll({
   children,

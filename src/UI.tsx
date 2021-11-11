@@ -1,15 +1,17 @@
+import { SnackbarProvider } from "notistack"
 import { useMemo } from "react"
 import { useLocation } from "react-router"
+
 import {
-  useMediaQuery,
-  createTheme,
-  ThemeProvider,
-  CssBaseline,
   Container,
+  CssBaseline,
+  ThemeProvider,
+  createTheme,
+  useMediaQuery,
 } from "@mui/material"
-import { SnackbarProvider } from "notistack"
-import { Bar } from "./components"
+
 import { titles } from "./Routes"
+import { Bar } from "./components"
 
 export default function UI({ children }: any) {
   const location = useLocation()

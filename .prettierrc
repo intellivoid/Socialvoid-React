@@ -1,3 +1,6 @@
 {
-    "semi": false
+  "semi": false,
+  "importOrder": ["^@mui/(.*)$", "^[./]"],
+  "importOrderSeparation": true,
+  "importOrderSortSpecifiers": true
 }

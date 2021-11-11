@@ -1,4 +1,5 @@
-import { AppBar, Toolbar, Typography, AppBarProps } from "@mui/material"
+import { AppBar, AppBarProps, Toolbar, Typography } from "@mui/material"
+
 import HideOnScroll from "./HideOnScroll"
 
 export default function Bar(props: AppBarProps & { routeTitle?: string }) {

@@ -1,17 +1,19 @@
+import { useSnackbar } from "notistack"
 import { Component } from "react"
 import { useNavigate } from "react-router-dom"
+import { HelpDocument } from "socialvoid"
+
 import {
+  Box,
   Button,
   Checkbox,
-  Box,
-  Typography,
   FormControlLabel,
+  Typography,
 } from "@mui/material"
-import { useSnackbar } from "notistack"
-import { HelpDocument } from "socialvoid"
+
 import { dispatch } from "../socialvoid"
-import { unparse, stringParameter } from "../utils"
 import { RouteProps } from "../types"
+import { stringParameter, unparse } from "../utils"
 
 class ToSC extends Component<
   RouteProps,

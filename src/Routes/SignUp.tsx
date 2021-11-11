@@ -1,11 +1,13 @@
-import React from "react"
-import { z } from "zod"
-import { dispatch } from "../socialvoid"
-import { Button, TextField, Link } from "@mui/material"
-import { RouteProps } from "../types"
-import { Password } from "../specifications"
-import { useLocation, useNavigate } from "react-router"
 import { useSnackbar } from "notistack"
+import React from "react"
+import { useLocation, useNavigate } from "react-router"
+import { z } from "zod"
+
+import { Button, Link, TextField } from "@mui/material"
+
+import { dispatch } from "../socialvoid"
+import { Password } from "../specifications"
+import { RouteProps } from "../types"
 import { handleZodErrors } from "../utils"
 
 class SignUpC extends React.Component<RouteProps, {}> {

@@ -1,8 +1,10 @@
+import { useSnackbar } from "notistack"
 import { useState } from "react"
 import { useNavigate } from "react-router"
-import { Box, Avatar, TextField } from "@mui/material"
-import { useSnackbar } from "notistack"
 import { Profile } from "socialvoid"
+
+import { Avatar, Box, TextField } from "@mui/material"
+
 import { dispatch } from "../socialvoid"
 
 export default function Home() {
