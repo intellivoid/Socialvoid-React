@@ -1,5 +1,4 @@
 import { ZodError, setErrorMap, defaultErrorMap } from "zod"
-import { withSnackbar } from "notistack"
 import { RouteProps } from "../types"
 
 setErrorMap((issue, _ctx) => {
