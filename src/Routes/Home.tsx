@@ -1,13 +1,15 @@
 import { Component } from "react"
 import { useNavigate } from "react-router-dom"
 import { useSnackbar } from "notistack"
-import { Post as TypePost } from "socialvoid"
 import { Post } from "../components"
 import { dispatch } from "../socialvoid"
-import { RouteProps } from "../types"
+import { RouteProps, NotDeletedPost } from "../types"
 import { notDeleted } from "../utils"
 
-class HomeC extends Component<RouteProps, { posts: TypePost[]; page: number }> {
+class HomeC extends Component<
+  RouteProps,
+  { posts: NotDeletedPost[]; page: number }
+> {
   constructor(props: any) {
     super(props)
 
@@ -22,7 +24,7 @@ class HomeC extends Component<RouteProps, { posts: TypePost[]; page: number }> {
       async (client) => {
         const posts = await client.timeline.retrieveFeed(this.state.page)
 
-        this.setState({ posts })
+        this.setState({ posts: posts.filter(notDeleted) })
       },
       { ...this.props, requireToBeAuthenticated: true }
     )
@@ -31,7 +33,7 @@ class HomeC extends Component<RouteProps, { posts: TypePost[]; page: number }> {
   render() {
     return (
       <>
-        {this.state.posts.filter(notDeleted).map((post) => (
+        {this.state.posts.map((post) => (
           <Post post={post} />
         ))}
       </>
