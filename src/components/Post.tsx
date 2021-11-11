@@ -1,5 +1,5 @@
 import moment from "moment"
-import { Component, useState } from "react"
+import { Component } from "react"
 import Card from "@mui/material/Card"
 import CardContent from "@mui/material/CardContent"
 import CardHeader from "@mui/material/CardHeader"
@@ -35,9 +35,16 @@ export default class Post extends Component<
       <Card variant="outlined" square>
         <CardHeader
           title={this.props.post.peer?.name}
-          subheader={moment(this.props.post.posted_timestamp * 1000).fromNow()}
+          subheader={
+            "@" +
+            this.props.post.peer?.username +
+            " · " +
+            moment(this.props.post.posted_timestamp * 1000).fromNow() +
+            " with " +
+            this.props.post.source
+          }
         />
-        {this.props.post.attachments.length != 0 ? (
+        {this.props.post.attachments.length !== 0 ? (
           <CardMedia component="img" image={this.state.attachmentSrcs[0]} />
         ) : (
           ""
