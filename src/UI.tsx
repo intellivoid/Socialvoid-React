@@ -9,6 +9,8 @@ import {
   useMediaQuery,
 } from "@mui/material"
 
+import Bar from "./components/Bar"
+
 export default function UI({ children }: any) {
   const dark = useMediaQuery("(prefers-color-scheme: dark)")
 
@@ -21,7 +23,8 @@ export default function UI({ children }: any) {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <SnackbarProvider>
-        <Container component="main" maxWidth="sm" sx={{ mt: 3 }}>
+        <Container component="main" maxWidth="sm">
+          <Bar />
           {children}
         </Container>
       </SnackbarProvider>

@@ -1,29 +1,21 @@
-import { AppBar, AppBarProps, Toolbar, Typography } from "@mui/material"
+import AppBar from "@mui/material/AppBar"
+import Slide from "@mui/material/Slide"
+import Toolbar from "@mui/material/Toolbar"
+import Typography from "@mui/material/Typography"
+import useScrollTrigger from "@mui/material/useScrollTrigger"
 
-import HideOnScroll from "./HideOnScroll"
+export default function Bar() {
+  const trigger = useScrollTrigger()
 
-export default function Bar(props: AppBarProps & { routeTitle?: string }) {
   return (
-    <HideOnScroll>
-      <AppBar {...props} sx={{ userSelect: "none" }}>
-        <Toolbar
-          sx={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-evenly",
-            textAlign: "center",
-          }}
-        >
+    <Slide appear={false} direction="down" in={!trigger}>
+      <AppBar position="sticky">
+        <Toolbar>
           <Typography variant="h6" component="div">
             Socialvoid
           </Typography>
-          {props.routeTitle ? (
-            <Typography variant="h6" component="div">
-              {props.routeTitle}
-            </Typography>
-          ) : undefined}
         </Toolbar>
       </AppBar>
-    </HideOnScroll>
+    </Slide>
   )
 }
