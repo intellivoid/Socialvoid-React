@@ -1,6 +1,14 @@
 {
   "semi": false,
-  "importOrder": ["^@mui/(.*)$", "^[./]"],
+  "importOrder": [
+    "^react$",
+    "^react-dom$",
+    "^react-router-dom$",
+    "^@mui/(.*)$",
+    "^notistack$",
+    "^socialvoid$",
+    "^[./]"
+  ],
   "importOrderSeparation": true,
   "importOrderSortSpecifiers": true
 }

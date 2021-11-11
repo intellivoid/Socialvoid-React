@@ -1,6 +1,6 @@
-import { SnackbarProvider } from "notistack"
-import { useMemo } from "react"
 import { useLocation } from "react-router"
+
+import { useMemo } from "react"
 
 import {
   Container,
@@ -9,6 +9,8 @@ import {
   createTheme,
   useMediaQuery,
 } from "@mui/material"
+
+import { SnackbarProvider } from "notistack"
 
 import { titles } from "./Routes"
 import { Bar } from "./components"

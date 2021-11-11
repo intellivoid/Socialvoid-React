@@ -1,7 +1,6 @@
-import { useSnackbar } from "notistack"
 import { Component } from "react"
+
 import { useNavigate } from "react-router-dom"
-import { HelpDocument } from "socialvoid"
 
 import {
   Box,
@@ -10,6 +9,10 @@ import {
   FormControlLabel,
   Typography,
 } from "@mui/material"
+
+import { useSnackbar } from "notistack"
+
+import { HelpDocument } from "socialvoid"
 
 import { dispatch } from "../socialvoid"
 import { RouteProps } from "../types"
