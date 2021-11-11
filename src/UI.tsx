@@ -1,7 +1,5 @@
 import { useLocation } from "react-router"
-
 import { useMemo } from "react"
-
 import {
   Container,
   CssBaseline,
@@ -9,9 +7,7 @@ import {
   createTheme,
   useMediaQuery,
 } from "@mui/material"
-
 import { SnackbarProvider } from "notistack"
-
 import { titles } from "./Routes"
 import { Bar } from "./components"
 

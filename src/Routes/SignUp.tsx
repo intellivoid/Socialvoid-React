@@ -1,12 +1,8 @@
 import { useLocation, useNavigate } from "react-router"
 import { z } from "zod"
-
 import React from "react"
-
 import { Button, Link, TextField } from "@mui/material"
-
 import { useSnackbar } from "notistack"
-
 import { dispatch } from "../socialvoid"
 import { Password } from "../specifications"
 import { RouteProps } from "../types"

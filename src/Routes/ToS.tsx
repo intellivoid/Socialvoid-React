@@ -1,7 +1,5 @@
 import { Component } from "react"
-
 import { useNavigate } from "react-router-dom"
-
 import {
   Box,
   Button,
@@ -9,11 +7,8 @@ import {
   FormControlLabel,
   Typography,
 } from "@mui/material"
-
 import { useSnackbar } from "notistack"
-
 import { HelpDocument } from "socialvoid"
-
 import { dispatch } from "../socialvoid"
 import { RouteProps } from "../types"
 import { stringParameter, unparse } from "../utils"
