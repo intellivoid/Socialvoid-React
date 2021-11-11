@@ -1,4 +1,5 @@
-import { openDB, IDBPDatabase } from "idb"
+import { IDBPDatabase, openDB } from "idb"
+
 import { client } from "./socialvoid"
 
 let _db: IDBPDatabase | undefined

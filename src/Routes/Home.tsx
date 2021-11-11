@@ -1,9 +1,10 @@
+import { useSnackbar } from "notistack"
 import React from "react"
 import { useNavigate } from "react-router-dom"
-import { useSnackbar } from "notistack"
+
 import { Post } from "../components"
 import { dispatch } from "../socialvoid"
-import { RouteProps, NotDeletedPost } from "../types"
+import { NotDeletedPost, RouteProps } from "../types"
 import { notDeleted } from "../utils"
 
 class Component extends React.Component<

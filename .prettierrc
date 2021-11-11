@@ -1,13 +1,6 @@
 {
   "semi": false,
-  "importOrder": [
-    "^react$",
-    "^react-dom$",
-    "^react-router-dom$",
-    "^@mui/material(.*)$",
-    "^@mui/icons-material(.*)$",
-    "^notistack$",
-    "^socialvoid$",
-    "^[./]"
-  ]
+  "importOrder": ["^@mui/(.*)$", "^[./]"],
+  "importOrderSeparation": true,
+  "importOrderSortSpecifiers": true
 }

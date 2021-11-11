@@ -1,4 +1,6 @@
+import { SnackbarProvider } from "notistack"
 import { useMemo } from "react"
+
 import {
   Container,
   CssBaseline,
@@ -6,7 +8,6 @@ import {
   createTheme,
   useMediaQuery,
 } from "@mui/material"
-import { SnackbarProvider } from "notistack"
 
 export default function UI({ children }: any) {
   const dark = useMediaQuery("(prefers-color-scheme: dark)")
