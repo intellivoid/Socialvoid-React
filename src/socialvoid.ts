@@ -23,7 +23,7 @@ export const dispatch = async (
   try {
     if (opts?.requireToBeAuthenticated) {
       if (!client.sessionExists) {
-        navigate("/signin")
+        navigate("/signin", { replace: true })
         return
       }
     } else if (opts?.requireToBeNotAuthenticated) {

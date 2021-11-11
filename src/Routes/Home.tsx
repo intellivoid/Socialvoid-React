@@ -1,54 +1,46 @@
-import { useNavigate } from "react-router"
-import { useState } from "react"
-import { Avatar, Box, TextField } from "@mui/material"
+import { Component } from "react"
+import { useNavigate } from "react-router-dom"
 import { useSnackbar } from "notistack"
-import { Profile } from "socialvoid"
+import { Post as TypePost } from "socialvoid"
+import { Post } from "../components"
 import { dispatch } from "../socialvoid"
+import { RouteProps } from "../types"
+
+class HomeC extends Component<RouteProps, { posts: TypePost[]; page: number }> {
+  constructor(props: any) {
+    super(props)
+
+    this.state = {
+      posts: [],
+      page: 1,
+    }
+  }
+
+  componentDidMount() {
+    dispatch(
+      async (client) => {
+        const posts = await client.timeline.retrieveFeed(this.state.page)
+
+        this.setState({ posts })
+      },
+      { ...this.props, requireToBeAuthenticated: true }
+    )
+  }
+
+  render() {
+    return (
+      <>
+        {this.state.posts.map((post) => (
+          <Post post={post} />
+        ))}
+      </>
+    )
+  }
+}
 
 export default function Home() {
   const navigate = useNavigate()
   const snackbar = useSnackbar()
 
-  const [profile, setProfile] = useState<Profile & { photo: string }>()
-
-  dispatch(
-    async (client) => {
-      const profile = await client.network.getProfile()
-
-      const photo = await client.cdn.download(
-        profile.display_picture_sizes[0].document,
-        true
-      )
-
-      setProfile({ ...profile, photo: URL.createObjectURL(photo) })
-    },
-    { navigate, snackbar }
-  )
-
-  return (
-    <Box
-      sx={{
-        marginTop: 8,
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-      }}
-    >
-      <Avatar
-        src={profile?.photo}
-        alt="Your profile photo"
-        sx={{ width: 100, height: 100, mb: 3 }}
-      />
-      <TextField
-        required
-        fullWidth
-        id="name"
-        label="Name"
-        name="username"
-        autoComplete="off"
-        autoFocus
-        sx={{ mb: 3 }}
-      />
-    </Box>
-  )
+  return <HomeC navigate={navigate} snackbar={snackbar} />
 }

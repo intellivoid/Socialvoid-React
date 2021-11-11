@@ -4,7 +4,8 @@
     "^react$",
     "^react-dom$",
     "^react-router-dom$",
-    "^@mui/(.*)$",
+    "^@mui/material(.*)$",
+    "^@mui/icons-material(.*)$",
     "^notistack$",
     "^socialvoid$",
     "^[./]"
