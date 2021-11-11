@@ -8,28 +8,34 @@ import { z } from "zod"
 import { Password } from "../specifications"
 import { useSnackbar } from "notistack"
 import { useNavigate } from "react-router"
+import { handleZodErrors } from "../utils"
 
 class SignInC extends Component<RouteProps> {
   submit(event: React.FormEvent<HTMLFormElement>) {
-    event.preventDefault() // prevent the browser from reloading the page
+    handleZodErrors(() => {
+      event.preventDefault() // prevent the browser from reloading the page
 
-    const data = new FormData(event.currentTarget)
+      const data = new FormData(event.currentTarget)
 
-    const { username, password } = z
-      .object({
-        username: z.string().nonempty(),
-        password: Password,
-      })
-      .parse({ username: data.get("username"), password: data.get("password") })
+      const { username, password } = z
+        .object({
+          username: z.string().nonempty(),
+          password: Password,
+        })
+        .parse({
+          username: data.get("username"),
+          password: data.get("password"),
+        })
 
-    dispatch(
-      async (client) => {
-        await client.newSession()
-        await client.session.authenticateUser(username, password)
-        this.props.navigate("/")
-      },
-      { ...this.props }
-    )
+      dispatch(
+        async (client) => {
+          await client.newSession()
+          await client.session.authenticateUser(username, password)
+          this.props.navigate("/")
+        },
+        { ...this.props }
+      )
+    }, this.props)
   }
 
   componentDidMount() {
