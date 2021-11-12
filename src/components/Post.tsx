@@ -1,4 +1,5 @@
 import { Component } from 'react'
+import { NavigateFunction } from 'react-router'
 
 import Card, { CardProps } from '@mui/material/Card'
 import CardActionArea from '@mui/material/CardActionArea'
@@ -18,7 +19,7 @@ import { postIsNotDeleted } from '../utils/types'
 type PostProps = CardProps & { post: NotDeletedPost; repost?: boolean }
 
 export default class Post extends Component<
-  PostProps,
+  PostProps & { navigate: NavigateFunction },
   { attachmentSrcs: string[] }
 > {
   constructor(props: any) {
@@ -46,7 +47,13 @@ export default class Post extends Component<
 
     return (
       <Card variant="outlined" {...this.props}>
-        <CardActionArea>
+        <CardActionArea
+          onClick={() =>
+            this.props.navigate('post?id=' + this.props.post.id, {
+              replace: true,
+            })
+          }
+        >
           <CardHeader
             title={
               <Typography>
@@ -76,6 +83,7 @@ export default class Post extends Component<
           this.props.post.reposted_post &&
           postIsNotDeleted(this.props.post.reposted_post) ? (
             <Post
+              navigate={this.props.navigate}
               post={this.props.post.reposted_post}
               sx={{
                 mb: 3,

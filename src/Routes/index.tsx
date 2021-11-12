@@ -4,6 +4,7 @@ import Container from '@mui/material/Container'
 
 import Header from '../components/Header'
 import Home from './Home'
+import Post from './Post'
 import SignIn from './SignIn'
 import SignUp from './SignUp'
 import ToS from './ToS'
@@ -19,6 +20,7 @@ export default function Routes() {
             <R path="/signin" element={<SignIn />} />
             <R path="/signup" element={<SignUp />} />
             <R path="/tos" element={<ToS />} />
+            <R path="/post" element={<Post />} />
           </S>
         </B>
       </Container>
