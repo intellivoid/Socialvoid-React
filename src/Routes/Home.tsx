@@ -28,7 +28,7 @@ export default function Home() {
         page: state.page + 1,
       })
     }, snackbar)
-  }, [state.page])
+  }, [navigate, state.page, snackbar])
 
   return (
     <>

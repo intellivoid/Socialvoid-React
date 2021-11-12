@@ -13,7 +13,6 @@ import { z } from 'zod'
 
 import Loader from '../components/Loader'
 import { dispatch } from '../socialvoid'
-import { RouteProps } from '../types'
 import { unparse } from '../utils/parser'
 import { redirectIfAuthenticated } from '../utils/redirect'
 

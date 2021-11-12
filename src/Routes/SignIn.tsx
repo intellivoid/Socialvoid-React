@@ -11,7 +11,6 @@ import { z } from 'zod'
 
 import { dispatch } from '../socialvoid'
 import { Password } from '../specifications'
-import { RouteProps } from '../types'
 import { handleZodErrors } from '../utils/errors'
 import { redirectIfAuthenticated } from '../utils/redirect'
 
