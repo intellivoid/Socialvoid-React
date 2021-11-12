@@ -1,16 +1,16 @@
-import Card from "@mui/material/Card"
-import CardContent from "@mui/material/CardContent"
-import CardHeader from "@mui/material/CardHeader"
-import CardMedia from "@mui/material/CardMedia"
-import Typography from "@mui/material/Typography"
-import moment from "moment"
-import { Component } from "react"
+import Card from '@mui/material/Card'
+import CardContent from '@mui/material/CardContent'
+import CardHeader from '@mui/material/CardHeader'
+import CardMedia from '@mui/material/CardMedia'
+import Typography from '@mui/material/Typography'
+import moment from 'moment'
+import { Component } from 'react'
 
-import { getDocument } from "../cache"
-import { dispatch } from "../socialvoid"
-import { NotDeletedPost } from "../types"
-import { unparse } from "../utils/parser"
-import "./Post.css"
+import { getDocument } from '../cache'
+import { dispatch } from '../socialvoid'
+import { NotDeletedPost } from '../types'
+import { unparse } from '../utils/parser'
+import './Post.css'
 
 export default class Post extends Component<
   { post: NotDeletedPost },
@@ -44,11 +44,11 @@ export default class Post extends Component<
         <CardHeader
           title={this.props.post.peer.name}
           subheader={
-            "@" +
+            '@' +
             this.props.post.peer.username +
-            " · " +
+            ' · ' +
             moment(this.props.post.posted_timestamp * 1000).fromNow() +
-            " with " +
+            ' with ' +
             this.props.post.source
           }
         />

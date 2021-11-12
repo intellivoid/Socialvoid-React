@@ -1,9 +1,9 @@
-import { Route as R, Routes as S } from "react-router-dom"
+import { Route as R, Routes as S } from 'react-router-dom'
 
-import Home from "./Home"
-import SignIn from "./SignIn"
-import SignUp from "./SignUp"
-import ToS from "./ToS"
+import Home from './Home'
+import SignIn from './SignIn'
+import SignUp from './SignUp'
+import ToS from './ToS'
 
 export default function Routes() {
   return (

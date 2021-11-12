@@ -4,17 +4,17 @@ import {
   ThemeProvider,
   createTheme,
   useMediaQuery,
-} from "@mui/material"
-import { SnackbarProvider } from "notistack"
-import { useMemo } from "react"
+} from '@mui/material'
+import { SnackbarProvider } from 'notistack'
+import { useMemo } from 'react'
 
-import Bar from "./components/Bar"
+import Bar from './components/Bar'
 
 export default function UI({ children }: any) {
-  const dark = useMediaQuery("(prefers-color-scheme: dark)")
+  const dark = useMediaQuery('(prefers-color-scheme: dark)')
 
   const theme = useMemo(
-    () => createTheme({ palette: { mode: dark ? "dark" : "light" } }),
+    () => createTheme({ palette: { mode: dark ? 'dark' : 'light' } }),
     [dark]
   )
 

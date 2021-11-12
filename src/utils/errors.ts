@@ -1,6 +1,6 @@
-import { ZodError, defaultErrorMap, setErrorMap } from "zod"
+import { ZodError, defaultErrorMap, setErrorMap } from 'zod'
 
-import { RouteProps } from "../types"
+import { RouteProps } from '../types'
 
 setErrorMap((issue, _ctx) => {
   let path = issue.path[0].toString()
@@ -8,8 +8,8 @@ setErrorMap((issue, _ctx) => {
   path = path.charAt(0).toUpperCase() + path.slice(1)
 
   if (
-    (issue.code === "too_small" && issue.minimum === 1) ||
-    (issue.code === "invalid_type" && issue.received === undefined)
+    (issue.code === 'too_small' && issue.minimum === 1) ||
+    (issue.code === 'invalid_type' && issue.received === undefined)
   ) {
     return { message: `${path} is empty.` }
   }
@@ -30,7 +30,7 @@ export function handleZodErrors(func: () => void, props: RouteProps) {
 
     if (fieldErrors.length !== 0) {
       props.snackbar.enqueueSnackbar(fieldErrors[0][0], {
-        variant: "warning",
+        variant: 'warning',
         preventDuplicate: true,
       })
     }

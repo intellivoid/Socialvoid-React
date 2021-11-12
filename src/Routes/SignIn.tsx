@@ -1,17 +1,17 @@
-import Box from "@mui/material/Box"
-import Button from "@mui/material/Button"
-import Link from "@mui/material/Link"
-import TextField from "@mui/material/TextField"
-import { useSnackbar } from "notistack"
-import React from "react"
-import { useNavigate } from "react-router-dom"
-import { z } from "zod"
+import Box from '@mui/material/Box'
+import Button from '@mui/material/Button'
+import Link from '@mui/material/Link'
+import TextField from '@mui/material/TextField'
+import { useSnackbar } from 'notistack'
+import React from 'react'
+import { useNavigate } from 'react-router-dom'
+import { z } from 'zod'
 
-import { dispatch } from "../socialvoid"
-import { Password } from "../specifications"
-import { RouteProps } from "../types"
-import { handleZodErrors } from "../utils/errors"
-import { redirectIfAuthenticated } from "../utils/redirect"
+import { dispatch } from '../socialvoid'
+import { Password } from '../specifications'
+import { RouteProps } from '../types'
+import { handleZodErrors } from '../utils/errors'
+import { redirectIfAuthenticated } from '../utils/redirect'
 
 class Component extends React.Component<RouteProps> {
   submit(event: React.FormEvent<HTMLFormElement>) {
@@ -26,15 +26,15 @@ class Component extends React.Component<RouteProps> {
           password: Password,
         })
         .parse({
-          username: data.get("username"),
-          password: data.get("password"),
+          username: data.get('username'),
+          password: data.get('password'),
         })
 
       dispatch(
         async (client) => {
           await client.newSession()
           await client.session.authenticateUser(username, password)
-          this.props.navigate("/")
+          this.props.navigate('/')
         },
         { ...this.props }
       )
@@ -81,7 +81,7 @@ class Component extends React.Component<RouteProps> {
         >
           Sign In
         </Button>
-        <Link href="/signup" variant="body2" sx={{ float: "right" }}>
+        <Link href="/signup" variant="body2" sx={{ float: 'right' }}>
           Don’t have an account?
         </Link>
       </Box>

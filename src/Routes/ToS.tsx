@@ -1,18 +1,18 @@
-import Box from "@mui/material/Box"
-import Button from "@mui/material/Button"
-import Checkbox from "@mui/material/Checkbox"
-import FormControlLabel from "@mui/material/FormControlLabel"
-import Typography from "@mui/material/Typography"
-import { useSnackbar } from "notistack"
-import React, { useEffect } from "react"
-import { useNavigate } from "react-router-dom"
-import { HelpDocument } from "socialvoid"
-import { z } from "zod"
+import Box from '@mui/material/Box'
+import Button from '@mui/material/Button'
+import Checkbox from '@mui/material/Checkbox'
+import FormControlLabel from '@mui/material/FormControlLabel'
+import Typography from '@mui/material/Typography'
+import { useSnackbar } from 'notistack'
+import React, { useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { HelpDocument } from 'socialvoid'
+import { z } from 'zod'
 
-import { dispatch } from "../socialvoid"
-import { RouteProps } from "../types"
-import { unparse } from "../utils/parser"
-import { redirectIfAuthenticated } from "../utils/redirect"
+import { dispatch } from '../socialvoid'
+import { RouteProps } from '../types'
+import { unparse } from '../utils/parser'
+import { redirectIfAuthenticated } from '../utils/redirect'
 
 class Component extends React.Component<
   RouteProps,
@@ -21,7 +21,7 @@ class Component extends React.Component<
   constructor(props: any) {
     super(props)
     this.state = {
-      document: { id: "", text: "Loading...", entities: [] },
+      document: { id: '', text: 'Loading...', entities: [] },
       disabled: true,
     }
   }
@@ -41,9 +41,9 @@ class Component extends React.Component<
       event.preventDefault()
       const data = new FormData(event.currentTarget)
 
-      if (data.get("acceptTermOfServices") !== "on") {
-        this.props.snackbar.enqueueSnackbar("You must read and accept.", {
-          variant: "info",
+      if (data.get('acceptTermOfServices') !== 'on') {
+        this.props.snackbar.enqueueSnackbar('You must read and accept.', {
+          variant: 'info',
           preventDuplicate: true,
         })
         return
@@ -52,7 +52,7 @@ class Component extends React.Component<
       this.props.snackbar.closeSnackbar()
 
       this.props.navigate(
-        "/signup?" + encodeURIComponent(z.string().parse(data.get("tosId")!)),
+        '/signup?' + encodeURIComponent(z.string().parse(data.get('tosId')!)),
         { replace: true }
       )
     }

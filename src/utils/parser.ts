@@ -1,4 +1,4 @@
-import { TextEntity } from "socialvoid"
+import { TextEntity } from 'socialvoid'
 
 function is(x: TextEntity, y: TextEntity) {
   return (
@@ -11,11 +11,11 @@ function is(x: TextEntity, y: TextEntity) {
 
 function htmlEscape(s: string) {
   return s
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#039;")
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;')
 }
 
 function _unparse(
@@ -25,7 +25,7 @@ function _unparse(
   length: number
 ) {
   let noffset = offset
-  let ntext = ""
+  let ntext = ''
 
   for (const entity of entities) {
     if (offset >= entity.length + entity.offset) {
@@ -39,7 +39,7 @@ function _unparse(
         entity.offset + entity.length >= entity2.offset && !is(entity, entity2)
     )
 
-    let atext = ""
+    let atext = ''
 
     if (netntities) {
       atext = _unparse(text, netntities, entity.offset, entity.length)
@@ -50,30 +50,30 @@ function _unparse(
     }
 
     switch (entity.type) {
-      case "BOLD":
+      case 'BOLD':
         ntext += `<b>${atext}</b>`
         break
-      case "ITALIC":
+      case 'ITALIC':
         ntext += `<i>${atext}</i>`
         break
-      case "CODE":
+      case 'CODE':
         ntext += `<code>${atext}</code>`
         break
-      case "STRIKE":
+      case 'STRIKE':
         ntext += `<s>${atext}</s>`
         break
-      case "UNDERLINE":
+      case 'UNDERLINE':
         ntext += `<u>${atext}</u>`
         break
-      case "URL":
+      case 'URL':
         ntext += `<a href="${htmlEscape(entity.value!)}">${atext}</a>`
         break
-      case "MENTION":
+      case 'MENTION':
         ntext += `<a href="sv://peer/${encodeURIComponent(
           entity.value!
         )}">${atext}</a>`
         break
-      case "HASHTAG":
+      case 'HASHTAG':
         ntext += atext
     }
 
@@ -86,5 +86,5 @@ function _unparse(
 export function unparse(text: string, entities: TextEntity[]) {
   entities = entities.sort((a) => a.offset - a.length)
 
-  return _unparse(text, entities, 0, text.length).replace(/\n/g, "<br />")
+  return _unparse(text, entities, 0, text.length).replace(/\n/g, '<br />')
 }

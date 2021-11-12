@@ -1,6 +1,6 @@
-import { ProviderContext } from "notistack"
-import { NavigateFunction } from "react-router-dom"
-import { Post } from "socialvoid"
+import { ProviderContext } from 'notistack'
+import { NavigateFunction } from 'react-router-dom'
+import { Post } from 'socialvoid'
 
 export interface RouteProps {
   navigate: NavigateFunction

@@ -1,5 +1,5 @@
-import { ProviderContext } from "notistack"
-import { Client, errors } from "socialvoid"
+import { ProviderContext } from 'notistack'
+import { Client, errors } from 'socialvoid'
 
 export const client = new Client()
 
@@ -23,8 +23,8 @@ export async function dispatch(
         client.deleteSession()
 
         if (snackbar) {
-          snackbar.enqueueSnackbar("Session expired.", {
-            variant: "error",
+          snackbar.enqueueSnackbar('Session expired.', {
+            variant: 'error',
             preventDuplicate: true,
           })
         }
@@ -33,11 +33,11 @@ export async function dispatch(
 
       if (snackbar) {
         snackbar.enqueueSnackbar(
-          err.errorMessage.endsWith(".")
+          err.errorMessage.endsWith('.')
             ? err.errorMessage
-            : err.errorMessage + ".",
+            : err.errorMessage + '.',
           {
-            variant: "error",
+            variant: 'error',
             preventDuplicate: true,
           }
         )
@@ -45,10 +45,10 @@ export async function dispatch(
     } else {
       if (err instanceof Error) {
         switch (err.message) {
-          case "Session does not exist":
+          case 'Session does not exist':
             if (snackbar) {
-              snackbar.enqueueSnackbar("Session does not exist.", {
-                variant: "error",
+              snackbar.enqueueSnackbar('Session does not exist.', {
+                variant: 'error',
                 preventDuplicate: true,
               })
             }

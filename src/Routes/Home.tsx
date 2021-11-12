@@ -1,12 +1,12 @@
-import { useSnackbar } from "notistack"
-import React from "react"
-import { useNavigate } from "react-router-dom"
+import { useSnackbar } from 'notistack'
+import React from 'react'
+import { useNavigate } from 'react-router-dom'
 
-import Post from "../components/Post"
-import { dispatch } from "../socialvoid"
-import { NotDeletedPost, RouteProps } from "../types"
-import { redirectIfNotAuthenticated } from "../utils/redirect"
-import { postIsNotDeleted } from "../utils/types"
+import Post from '../components/Post'
+import { dispatch } from '../socialvoid'
+import { NotDeletedPost, RouteProps } from '../types'
+import { redirectIfNotAuthenticated } from '../utils/redirect'
+import { postIsNotDeleted } from '../utils/types'
 
 class Component extends React.Component<
   RouteProps,

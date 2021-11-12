@@ -1,17 +1,17 @@
-import Box from "@mui/material/Box"
-import Button from "@mui/material/Button"
-import Link from "@mui/material/Link"
-import TextField from "@mui/material/TextField"
-import { useSnackbar } from "notistack"
-import React from "react"
-import { useLocation, useNavigate } from "react-router-dom"
-import { z } from "zod"
+import Box from '@mui/material/Box'
+import Button from '@mui/material/Button'
+import Link from '@mui/material/Link'
+import TextField from '@mui/material/TextField'
+import { useSnackbar } from 'notistack'
+import React from 'react'
+import { useLocation, useNavigate } from 'react-router-dom'
+import { z } from 'zod'
 
-import { dispatch } from "../socialvoid"
-import { Password } from "../specifications"
-import { RouteProps } from "../types"
-import { handleZodErrors } from "../utils/errors"
-import { redirectIfAuthenticated } from "../utils/redirect"
+import { dispatch } from '../socialvoid'
+import { Password } from '../specifications'
+import { RouteProps } from '../types'
+import { handleZodErrors } from '../utils/errors'
+import { redirectIfAuthenticated } from '../utils/redirect'
 
 class Component extends React.Component<RouteProps> {
   submit(event: React.FormEvent<HTMLFormElement>) {
@@ -29,10 +29,10 @@ class Component extends React.Component<RouteProps> {
         })
         .parse({
           tosId: this.props.query?.tosId,
-          username: data.get("username"),
-          password: data.get("password"),
-          firstName: data.get("firstName"),
-          lastName: data.get("lastName"),
+          username: data.get('username'),
+          password: data.get('password'),
+          firstName: data.get('firstName'),
+          lastName: data.get('lastName'),
         })
 
       dispatch(
@@ -52,11 +52,11 @@ class Component extends React.Component<RouteProps> {
             params.password
           )
 
-          this.props.snackbar.enqueueSnackbar("Signed up successfully.", {
-            variant: "success",
+          this.props.snackbar.enqueueSnackbar('Signed up successfully.', {
+            variant: 'success',
           })
 
-          this.props.navigate("/", { replace: true })
+          this.props.navigate('/', { replace: true })
         },
         { ...this.props }
       )
@@ -67,7 +67,7 @@ class Component extends React.Component<RouteProps> {
     dispatch(
       () => {
         if (!this.props.query?.tosId) {
-          this.props.navigate("/tos", { replace: true })
+          this.props.navigate('/tos', { replace: true })
         }
       },
       { ...this.props }
@@ -126,7 +126,7 @@ class Component extends React.Component<RouteProps> {
         >
           Sign Up
         </Button>
-        <Link href="/signin" variant="body2" sx={{ float: "right" }}>
+        <Link href="/signin" variant="body2" sx={{ float: 'right' }}>
           Already have an account?
         </Link>
       </Box>
