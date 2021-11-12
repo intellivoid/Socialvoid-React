@@ -1,6 +1,6 @@
 import { Component } from 'react'
 
-import Card from '@mui/material/Card'
+import Card, { CardProps } from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import CardHeader from '@mui/material/CardHeader'
 import CardMedia from '@mui/material/CardMedia'
@@ -14,7 +14,7 @@ import { NotDeletedPost } from '../types'
 import { unparse } from '../utils/parser'
 
 export default class Post extends Component<
-  { post: NotDeletedPost },
+  CardProps & { post: NotDeletedPost },
   { attachmentSrcs: string[] }
 > {
   constructor(props: any) {
@@ -41,7 +41,7 @@ export default class Post extends Component<
       ) : undefined
 
     return (
-      <Card variant="outlined" square className="Post" sx={{ mt: 1 }}>
+      <Card variant="outlined" square className="Post" {...this.props}>
         <CardHeader
           title={this.props.post.peer.name}
           subheader={
