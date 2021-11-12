@@ -54,7 +54,8 @@ class Component extends React.Component<
       this.props.snackbar.closeSnackbar()
 
       this.props.navigate(
-        '/signup?' + encodeURIComponent(z.string().parse(data.get('tosId')!)),
+        '/signup?tosId=' +
+          encodeURIComponent(z.string().parse(data.get('tosId')!)),
         { replace: true }
       )
     }

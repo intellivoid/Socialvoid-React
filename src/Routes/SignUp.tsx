@@ -136,7 +136,7 @@ export default function SignUp() {
   React.useEffect(() => {
     redirectIfAuthenticated(navigate)
 
-    if (!query?.tosId) {
+    if (!query.tosId) {
       navigate('/tos', { replace: true })
     }
   })
