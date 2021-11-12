@@ -1,6 +1,7 @@
 import { Component } from 'react'
 
 import Card, { CardProps } from '@mui/material/Card'
+import CardActionArea from '@mui/material/CardActionArea'
 import CardContent from '@mui/material/CardContent'
 import CardHeader from '@mui/material/CardHeader'
 import CardMedia from '@mui/material/CardMedia'
@@ -45,47 +46,49 @@ export default class Post extends Component<
 
     return (
       <Card variant="outlined" {...this.props}>
-        <CardHeader
-          title={
-            <Typography>
-              <span style={{ fontWeight: 'bold' }}>
-                {this.props.post.peer.name}
-              </span>{' '}
-              <span style={{ opacity: 0.5 }}>
-                @{this.props.post.peer.username} &middot;{' '}
-                {moment(this.props.post.posted_timestamp * 1000).fromNow()}
-              </span>
-            </Typography>
-          }
-        />
-
-        {media}
-
-        <CardContent>
-          <Typography
-            variant="body1"
-            dangerouslySetInnerHTML={{
-              __html: unparse(this.props.post.text, this.props.post.entities),
-            }}
-          ></Typography>
-        </CardContent>
-
-        {!this.props.repost &&
-        this.props.post.reposted_post &&
-        postIsNotDeleted(this.props.post.reposted_post) ? (
-          <Post
-            post={this.props.post.reposted_post}
-            sx={{
-              mb: 3,
-              mr: 'auto',
-              ml: 'auto',
-              width: '90%',
-            }}
-            repost
+        <CardActionArea>
+          <CardHeader
+            title={
+              <Typography>
+                <span style={{ fontWeight: 'bold' }}>
+                  {this.props.post.peer.name}
+                </span>{' '}
+                <span style={{ opacity: 0.5 }}>
+                  @{this.props.post.peer.username} &middot;{' '}
+                  {moment(this.props.post.posted_timestamp * 1000).fromNow()}
+                </span>
+              </Typography>
+            }
           />
-        ) : (
-          ''
-        )}
+
+          {media}
+
+          <CardContent>
+            <Typography
+              variant="body1"
+              dangerouslySetInnerHTML={{
+                __html: unparse(this.props.post.text, this.props.post.entities),
+              }}
+            ></Typography>
+          </CardContent>
+
+          {!this.props.repost &&
+          this.props.post.reposted_post &&
+          postIsNotDeleted(this.props.post.reposted_post) ? (
+            <Post
+              post={this.props.post.reposted_post}
+              sx={{
+                mb: 3,
+                mr: 'auto',
+                ml: 'auto',
+                width: '90%',
+              }}
+              repost
+            />
+          ) : (
+            ''
+          )}
+        </CardActionArea>
       </Card>
     )
   }
