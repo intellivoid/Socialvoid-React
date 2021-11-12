@@ -1,6 +1,5 @@
 import React from 'react'
 
-import Container from '@mui/material/Container'
 import CssBaseline from '@mui/material/CssBaseline'
 import ThemeProvider from '@mui/material/styles/ThemeProvider'
 import createTheme from '@mui/material/styles/createTheme'
@@ -8,9 +7,7 @@ import useMediaQuery from '@mui/material/useMediaQuery'
 
 import { SnackbarProvider } from 'notistack'
 
-import Bar from './components/Bar'
-
-export default function UI({ children }: any) {
+export default function Theme({ children }: { children: React.ReactNode }) {
   const dark = useMediaQuery('(prefers-color-scheme: dark)')
 
   const theme = React.useMemo(
@@ -21,12 +18,7 @@ export default function UI({ children }: any) {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <SnackbarProvider>
-        <Container component="main" maxWidth="sm">
-          <Bar />
-          {children}
-        </Container>
-      </SnackbarProvider>
+      <SnackbarProvider>{children}</SnackbarProvider>
     </ThemeProvider>
   )
 }

@@ -1,17 +1,14 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { BrowserRouter } from 'react-router-dom'
 
 import Routes from './Routes'
-import UI from './UI'
+import Theme from './components/Theme'
 
 ReactDOM.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <UI>
-        <Routes />
-      </UI>
-    </BrowserRouter>
+    <Theme>
+      <Routes />
+    </Theme>
   </React.StrictMode>,
   document.getElementById('root')
 )
