@@ -9,7 +9,7 @@ export default function Bar() {
 
   return (
     <Slide appear={false} direction="down" in={!trigger}>
-      <AppBar position="sticky">
+      <AppBar position="sticky" variant="outlined">
         <Toolbar>
           <Typography variant="h6" component="div">
             Socialvoid
