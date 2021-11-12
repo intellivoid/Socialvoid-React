@@ -22,7 +22,11 @@ export default function Header() {
         }}
       >
         <Container maxWidth="sm">
-          <AppBar position="sticky" color="transparent">
+          <AppBar
+            position="sticky"
+            color="transparent"
+            sx={{ boxShadow: 'none' }}
+          >
             <Toolbar>
               <Typography variant="h6" component="div">
                 Socialvoid
