@@ -11,7 +11,16 @@ export default function Header() {
 
   return (
     <Slide appear={false} direction="down" in={!trigger}>
-      <Paper component="header" variant="outlined">
+      <Paper
+        component="header"
+        variant="outlined"
+        sx={{
+          borderTop: 'none',
+          borderRight: 'none',
+          borderLeft: 'none',
+          userSelect: 'none',
+        }}
+      >
         <Container maxWidth="sm">
           <AppBar position="sticky" color="transparent">
             <Toolbar>
