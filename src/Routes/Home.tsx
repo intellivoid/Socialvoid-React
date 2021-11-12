@@ -14,7 +14,10 @@ export default function Home() {
   const snackbar = useSnackbar()
 
   const [state, setState] = useState<{ posts: NotDeletedPost[]; page: number }>(
-    { posts: [], page: 1 }
+    {
+      posts: [],
+      page: 1,
+    }
   )
 
   useEffect(() => {

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { NavigateFunction } from 'react-router'
 
 import Card, { CardProps } from '@mui/material/Card'
@@ -18,7 +18,7 @@ import { unparse } from '../utils/parser'
 import { postIsNotDeleted } from '../utils/types'
 
 type PostProps = CardProps & {
-  post: sv.Post | NotDeletedPost
+  post: sv.Post
   repost?: boolean
   navigate?: NavigateFunction
 }
