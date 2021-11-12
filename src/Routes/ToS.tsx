@@ -7,10 +7,11 @@ import { useSnackbar } from "notistack"
 import React, { useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import { HelpDocument } from "socialvoid"
+import { z } from "zod"
 
 import { dispatch } from "../socialvoid"
 import { RouteProps } from "../types"
-import { redirectIfAuthenticated, stringParameter, unparse } from "../utils"
+import { redirectIfAuthenticated, unparse } from "../utils"
 
 class Component extends React.Component<
   RouteProps,
@@ -50,7 +51,7 @@ class Component extends React.Component<
       this.props.snackbar.closeSnackbar()
 
       this.props.navigate(
-        "/signup?" + encodeURIComponent(stringParameter(data.get("tosId")!)),
+        "/signup?" + encodeURIComponent(z.string().parse(data.get("tosId")!)),
         { replace: true }
       )
     }
