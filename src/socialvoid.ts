@@ -42,13 +42,7 @@ export async function dispatch(
       if (err instanceof Error) {
         switch (err.message) {
           case 'Session does not exist':
-            if (snackbar) {
-              snackbar.enqueueSnackbar('Session does not exist.', {
-                variant: 'error',
-                preventDuplicate: true,
-              })
-            }
-            return
+            break
         }
       }
     }
