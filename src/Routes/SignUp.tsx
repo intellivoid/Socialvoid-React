@@ -10,7 +10,7 @@ import { z } from "zod"
 import { dispatch } from "../socialvoid"
 import { Password } from "../specifications"
 import { RouteProps } from "../types"
-import { handleZodErrors } from "../utils"
+import { handleZodErrors, redirectIfAuthenticated } from "../utils"
 
 class Component extends React.Component<RouteProps> {
   submit(event: React.FormEvent<HTMLFormElement>) {
@@ -69,7 +69,7 @@ class Component extends React.Component<RouteProps> {
           this.props.navigate("/tos", { replace: true })
         }
       },
-      { ...this.props, requireToBeNotAuthenticated: true }
+      { ...this.props }
     )
   }
 
@@ -140,6 +140,10 @@ export default function SignUp() {
   const query = Object.fromEntries(
     new URLSearchParams(useLocation().search).entries()
   )
+
+  React.useEffect(() => {
+    redirectIfAuthenticated(navigate)
+  })
 
   return <Component navigate={navigate} snackbar={snackbar} query={query} />
 }

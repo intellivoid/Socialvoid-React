@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom"
 import Post from "../components/Post"
 import { dispatch } from "../socialvoid"
 import { NotDeletedPost, RouteProps } from "../types"
-import { notDeleted } from "../utils"
+import { notDeleted, redirectIfNotAuthenticated } from "../utils"
 
 class Component extends React.Component<
   RouteProps,
@@ -27,7 +27,7 @@ class Component extends React.Component<
 
         this.setState({ posts: posts.filter(notDeleted) })
       },
-      { ...this.props, requireToBeAuthenticated: true }
+      { ...this.props }
     )
   }
 
@@ -45,6 +45,10 @@ class Component extends React.Component<
 export default function Home() {
   const navigate = useNavigate()
   const snackbar = useSnackbar()
+
+  React.useEffect(() => {
+    redirectIfNotAuthenticated(navigate)
+  })
 
   return <Component navigate={navigate} snackbar={snackbar} />
 }

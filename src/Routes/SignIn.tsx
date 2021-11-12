@@ -10,7 +10,7 @@ import { z } from "zod"
 import { dispatch } from "../socialvoid"
 import { Password } from "../specifications"
 import { RouteProps } from "../types"
-import { handleZodErrors } from "../utils"
+import { handleZodErrors, redirectIfAuthenticated } from "../utils"
 
 class Component extends React.Component<RouteProps> {
   submit(event: React.FormEvent<HTMLFormElement>) {
@@ -43,7 +43,6 @@ class Component extends React.Component<RouteProps> {
   componentDidMount() {
     dispatch(() => {}, {
       ...this.props,
-      requireToBeNotAuthenticated: true,
     })
   }
 
@@ -92,6 +91,10 @@ class Component extends React.Component<RouteProps> {
 export default function SignUp() {
   const navigate = useNavigate()
   const snackbar = useSnackbar()
+
+  React.useEffect(() => {
+    redirectIfAuthenticated(navigate)
+  })
 
   return <Component navigate={navigate} snackbar={snackbar} />
 }

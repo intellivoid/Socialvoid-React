@@ -4,13 +4,13 @@ import Checkbox from "@mui/material/Checkbox"
 import FormControlLabel from "@mui/material/FormControlLabel"
 import Typography from "@mui/material/Typography"
 import { useSnackbar } from "notistack"
-import React from "react"
+import React, { useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import { HelpDocument } from "socialvoid"
 
 import { dispatch } from "../socialvoid"
 import { RouteProps } from "../types"
-import { stringParameter, unparse } from "../utils"
+import { redirectIfAuthenticated, stringParameter, unparse } from "../utils"
 
 class Component extends React.Component<
   RouteProps,
@@ -30,7 +30,7 @@ class Component extends React.Component<
         const document = await client.help.getTermsOfService()
         this.setState({ document, disabled: false })
       },
-      { ...this.props, requireToBeNotAuthenticated: true }
+      { ...this.props }
     )
   }
 
@@ -97,6 +97,10 @@ class Component extends React.Component<
 export default function ToS() {
   const navigate = useNavigate()
   const snackbar = useSnackbar()
+
+  useEffect(() => {
+    redirectIfAuthenticated(navigate)
+  })
 
   return <Component navigate={navigate} snackbar={snackbar} />
 }

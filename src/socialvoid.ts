@@ -7,36 +7,12 @@ export const client = new Client()
 export async function dispatch(
   func: (client: Client) => Promise<void> | void,
   opts?: {
-    navigate?: NavigateFunction
     snackbar?: ProviderContext
-    requireToBeAuthenticated?: boolean
-    requireToBeNotAuthenticated?: boolean
   }
 ) {
-  const navigate = opts?.navigate,
-    snackbar = opts?.snackbar
-
-  if (
-    (opts?.requireToBeAuthenticated && opts.requireToBeNotAuthenticated) ||
-    ((opts?.requireToBeAuthenticated || opts?.requireToBeNotAuthenticated) &&
-      !navigate)
-  ) {
-    throw new Error("Invalid options")
-  }
+  const snackbar = opts?.snackbar
 
   try {
-    if (opts?.requireToBeAuthenticated) {
-      if (!client.sessionExists) {
-        navigate!("/signin", { replace: true })
-        return
-      }
-    } else if (opts?.requireToBeNotAuthenticated) {
-      if (client.sessionExists) {
-        navigate!("/", { replace: true })
-        return
-      }
-    }
-
     await func(client)
   } catch (err) {
     if (err instanceof errors.SocialvoidError) {
@@ -71,8 +47,11 @@ export async function dispatch(
       if (err instanceof Error) {
         switch (err.message) {
           case "Session does not exist":
-            if (navigate) {
-              navigate("/signin")
+            if (snackbar) {
+              snackbar.enqueueSnackbar("Session does not exist.", {
+                variant: "error",
+                preventDuplicate: true,
+              })
             }
             return
         }
