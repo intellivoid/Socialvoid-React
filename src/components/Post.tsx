@@ -12,9 +12,27 @@ import { getDocument } from '../cache'
 import { dispatch } from '../socialvoid'
 import { NotDeletedPost } from '../types'
 import { unparse } from '../utils/parser'
+import { postIsNotDeleted } from '../utils/types'
+
+type PostProps = CardProps & { post: NotDeletedPost; repost?: boolean }
+
+function getSubheader(props: PostProps) {
+  if (props.repost) {
+    return '@' + props.post.peer.username
+  }
+
+  return (
+    '@' +
+    props.post.peer.username +
+    ' · ' +
+    (props.post.reposted_post ? 'reposted' : 'posted') +
+    ' ' +
+    moment(props.post.posted_timestamp * 1000).fromNow()
+  )
+}
 
 export default class Post extends Component<
-  CardProps & { post: NotDeletedPost },
+  PostProps,
   { attachmentSrcs: string[] }
 > {
   constructor(props: any) {
@@ -41,19 +59,23 @@ export default class Post extends Component<
       ) : undefined
 
     return (
-      <Card variant="outlined" square className="Post" {...this.props}>
+      <Card variant="outlined" {...this.props}>
         <CardHeader
-          title={this.props.post.peer.name}
-          subheader={
-            '@' +
-            this.props.post.peer.username +
-            ' · ' +
-            moment(this.props.post.posted_timestamp * 1000).fromNow() +
-            ' with ' +
-            this.props.post.source
+          title={
+            <Typography>
+              <span style={{ fontWeight: 'bold' }}>
+                {this.props.post.peer.name}
+              </span>{' '}
+              <span style={{ opacity: 0.5 }}>
+                @{this.props.post.peer.username} &middot;{' '}
+                {moment(this.props.post.posted_timestamp * 1000).fromNow()}
+              </span>
+            </Typography>
           }
         />
+
         {media}
+
         <CardContent>
           <Typography
             variant="body1"
@@ -62,6 +84,23 @@ export default class Post extends Component<
             }}
           ></Typography>
         </CardContent>
+
+        {!this.props.repost &&
+        this.props.post.reposted_post &&
+        postIsNotDeleted(this.props.post.reposted_post) ? (
+          <Post
+            post={this.props.post.reposted_post}
+            sx={{
+              mb: 3,
+              mr: 'auto',
+              ml: 'auto',
+              width: '90%',
+            }}
+            repost
+          />
+        ) : (
+          ''
+        )}
       </Card>
     )
   }
