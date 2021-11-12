@@ -1,4 +1,4 @@
-import { Component } from 'react'
+import React, { useEffect, useState } from 'react'
 import { NavigateFunction } from 'react-router'
 
 import Card, { CardProps } from '@mui/material/Card'
@@ -9,6 +9,7 @@ import CardMedia from '@mui/material/CardMedia'
 import Typography from '@mui/material/Typography'
 
 import moment from 'moment'
+import * as sv from 'socialvoid'
 
 import { getDocument } from '../cache'
 import { dispatch } from '../socialvoid'
@@ -16,88 +17,94 @@ import { NotDeletedPost } from '../types'
 import { unparse } from '../utils/parser'
 import { postIsNotDeleted } from '../utils/types'
 
-type PostProps = CardProps & { post: NotDeletedPost; repost?: boolean }
+type PostProps = CardProps & {
+  post: sv.Post | NotDeletedPost
+  repost?: boolean
+  navigate?: NavigateFunction
+}
 
-export default class Post extends Component<
-  PostProps & { navigate: NavigateFunction },
-  { attachmentSrcs: string[] }
-> {
-  constructor(props: any) {
-    super(props)
-    this.state = { attachmentSrcs: [] }
-  }
+function PostFrame(props: CardProps) {
+  return <Card variant="outlined" {...props} />
+}
 
-  componentDidMount() {
+function InnerPostFrame(props: CardProps) {
+  return (
+    <PostFrame
+      sx={{ mb: 3, mr: 'auto', ml: 'auto', width: '90%' }}
+      {...props}
+    />
+  )
+}
+
+function DeletedPostView() {
+  return (
+    <CardContent>
+      <Typography variant="body1">This post is deleted.</Typography>
+    </CardContent>
+  )
+}
+
+function PostView({ post }: { post: NotDeletedPost }) {
+  const [attachmentSrcs, setattachmentSrcs] = useState<Array<string>>([])
+
+  useEffect(() => {
     dispatch(async () => {
       const attachmentSrcs = new Array<string>()
 
-      for (const document of this.props.post.attachments) {
+      for (const document of post.attachments) {
         attachmentSrcs.push(await getDocument(document.id))
       }
 
-      this.setState({ attachmentSrcs })
+      setattachmentSrcs(attachmentSrcs)
     })
-  }
+  })
 
-  render() {
-    const media =
-      this.props.post.attachments.length !== 0 ? (
-        <CardMedia component="img" image={this.state.attachmentSrcs[0]} />
-      ) : undefined
+  return (
+    <>
+      <CardHeader
+        title={
+          <Typography>
+            <span style={{ fontWeight: 'bold' }}>{post.peer.name}</span>{' '}
+            <span style={{ opacity: 0.5 }}>
+              @{post.peer.username} &middot;{' '}
+              {moment(post.posted_timestamp * 1000).fromNow()}
+            </span>
+          </Typography>
+        }
+      />
 
-    return (
-      <Card variant="outlined" {...this.props}>
-        <CardActionArea
-          onClick={() =>
-            this.props.navigate('post?id=' + this.props.post.id, {
-              replace: true,
-            })
-          }
-        >
-          <CardHeader
-            title={
-              <Typography>
-                <span style={{ fontWeight: 'bold' }}>
-                  {this.props.post.peer.name}
-                </span>{' '}
-                <span style={{ opacity: 0.5 }}>
-                  @{this.props.post.peer.username} &middot;{' '}
-                  {moment(this.props.post.posted_timestamp * 1000).fromNow()}
-                </span>
-              </Typography>
-            }
-          />
+      {post.attachments.length !== 0 && (
+        <CardMedia component="img" image={attachmentSrcs[0]} />
+      )}
 
-          {media}
+      <CardContent>
+        <Typography
+          variant="body1"
+          dangerouslySetInnerHTML={{
+            __html: unparse(post.text, post.entities),
+          }}
+        ></Typography>
+      </CardContent>
 
-          <CardContent>
-            <Typography
-              variant="body1"
-              dangerouslySetInnerHTML={{
-                __html: unparse(this.props.post.text, this.props.post.entities),
-              }}
-            ></Typography>
-          </CardContent>
+      {post.reposted_post && (
+        <InnerPostFrame>
+          <PostView post={post} />
+        </InnerPostFrame>
+      )}
+    </>
+  )
+}
 
-          {!this.props.repost &&
-          this.props.post.reposted_post &&
-          postIsNotDeleted(this.props.post.reposted_post) ? (
-            <Post
-              navigate={this.props.navigate}
-              post={this.props.post.reposted_post}
-              sx={{
-                mb: 3,
-                mr: 'auto',
-                ml: 'auto',
-                width: '90%',
-              }}
-              repost
-            />
-          ) : (
-            ''
-          )}
-        </CardActionArea>
-      </Card>
-    )
-  }
+export default function Post(props: PostProps) {
+  const body = postIsNotDeleted(props.post) ? (
+    <PostView post={props.post} />
+  ) : (
+    <DeletedPostView />
+  )
+
+  return (
+    <PostFrame variant="outlined" {...props}>
+      {props.navigate ? <CardActionArea>{body}</CardActionArea> : body}
+    </PostFrame>
+  )
 }
