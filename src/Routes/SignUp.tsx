@@ -65,17 +65,6 @@ class Component extends React.Component<RouteProps> {
     }, this.props)
   }
 
-  componentDidMount() {
-    dispatch(
-      () => {
-        if (!this.props.query?.tosId) {
-          this.props.navigate('/tos', { replace: true })
-        }
-      },
-      { ...this.props }
-    )
-  }
-
   render() {
     return (
       <Box
@@ -146,6 +135,10 @@ export default function SignUp() {
 
   React.useEffect(() => {
     redirectIfAuthenticated(navigate)
+
+    if (!query?.tosId) {
+      navigate('/tos', { replace: true })
+    }
   })
 
   return <Component navigate={navigate} snackbar={snackbar} query={query} />
