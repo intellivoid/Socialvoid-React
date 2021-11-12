@@ -12,7 +12,6 @@ import { getDocument } from '../cache'
 import { dispatch } from '../socialvoid'
 import { NotDeletedPost } from '../types'
 import { unparse } from '../utils/parser'
-import './Post.css'
 
 export default class Post extends Component<
   { post: NotDeletedPost },
@@ -42,7 +41,7 @@ export default class Post extends Component<
       ) : undefined
 
     return (
-      <Card variant="outlined" square className="Post">
+      <Card variant="outlined" square className="Post" sx={{ mt: 1 }}>
         <CardHeader
           title={this.props.post.peer.name}
           subheader={
