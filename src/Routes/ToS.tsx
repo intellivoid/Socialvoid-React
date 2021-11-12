@@ -11,6 +11,7 @@ import { useSnackbar } from 'notistack'
 import { HelpDocument } from 'socialvoid'
 import { z } from 'zod'
 
+import Loader from '../components/Loader'
 import { dispatch } from '../socialvoid'
 import { RouteProps } from '../types'
 import { unparse } from '../utils/parser'
@@ -18,76 +19,76 @@ import { redirectIfAuthenticated } from '../utils/redirect'
 
 class Component extends React.Component<
   RouteProps,
-  { document: HelpDocument; disabled: boolean }
+  { document?: HelpDocument; ready: boolean }
 > {
   constructor(props: any) {
     super(props)
     this.state = {
-      document: { id: '', text: 'Loading...', entities: [] },
-      disabled: true,
+      ready: false,
     }
+  }
+
+  submit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault()
+    const data = new FormData(event.currentTarget)
+
+    if (data.get('acceptTermOfServices') !== 'on') {
+      this.props.snackbar.enqueueSnackbar('You must read and accept.', {
+        variant: 'info',
+        preventDuplicate: true,
+      })
+      return
+    }
+
+    this.props.snackbar.closeSnackbar()
+
+    this.props.navigate(
+      '/signup?tosId=' +
+        encodeURIComponent(z.string().parse(data.get('tosId')!)),
+      { replace: true }
+    )
   }
 
   componentDidMount() {
     dispatch(
       async (client) => {
         const document = await client.help.getTermsOfService()
-        this.setState({ document, disabled: false })
+        this.setState({ document, ready: true })
       },
       { ...this.props }
     )
   }
 
+  ready(_document?: HelpDocument): _document is HelpDocument {
+    return this.state.ready
+  }
+
   render() {
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-      event.preventDefault()
-      const data = new FormData(event.currentTarget)
+    const document = this.state.document
 
-      if (data.get('acceptTermOfServices') !== 'on') {
-        this.props.snackbar.enqueueSnackbar('You must read and accept.', {
-          variant: 'info',
-          preventDuplicate: true,
-        })
-        return
-      }
-
-      this.props.snackbar.closeSnackbar()
-
-      this.props.navigate(
-        '/signup?tosId=' +
-          encodeURIComponent(z.string().parse(data.get('tosId')!)),
-        { replace: true }
-      )
-    }
-
-    return (
+    return this.ready(document) ? (
       <>
         <Typography
           variant="body1"
           sx={{ mt: 3 }}
           dangerouslySetInnerHTML={{
-            __html: unparse(
-              this.state.document.text,
-              this.state.document.entities
-            ),
+            __html: unparse(document.text, document.entities),
           }}
         ></Typography>
-        <Box component="form" noValidate sx={{ mt: 3 }} onSubmit={handleSubmit}>
-          <input type="hidden" name="tosId" value={this.state.document.id} />
+        <Box
+          component="form"
+          noValidate
+          sx={{ mt: 3 }}
+          onSubmit={this.submit.bind(this)}
+        >
+          <input type="hidden" name="tosId" value={document.id} />
           <FormControlLabel
-            control={
-              <Checkbox
-                name="acceptTermOfServices"
-                color="primary"
-                disabled={this.state.disabled}
-              />
-            }
+            control={<Checkbox name="acceptTermOfServices" color="primary" />}
             label="I have read and accepted."
           />
           <Button
             type="submit"
             variant="contained"
-            disabled={this.state.disabled}
             sx={{ mt: 3, mb: 2 }}
             fullWidth
           >
@@ -95,6 +96,8 @@ class Component extends React.Component<
           </Button>
         </Box>
       </>
+    ) : (
+      <Loader />
     )
   }
 }
