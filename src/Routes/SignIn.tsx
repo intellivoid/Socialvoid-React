@@ -10,7 +10,8 @@ import { z } from "zod"
 import { dispatch } from "../socialvoid"
 import { Password } from "../specifications"
 import { RouteProps } from "../types"
-import { handleZodErrors, redirectIfAuthenticated } from "../utils"
+import { handleZodErrors } from "../utils/errors"
+import { redirectIfAuthenticated } from "../utils/redirect"
 
 class Component extends React.Component<RouteProps> {
   submit(event: React.FormEvent<HTMLFormElement>) {

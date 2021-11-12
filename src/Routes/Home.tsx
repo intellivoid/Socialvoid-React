@@ -5,7 +5,8 @@ import { useNavigate } from "react-router-dom"
 import Post from "../components/Post"
 import { dispatch } from "../socialvoid"
 import { NotDeletedPost, RouteProps } from "../types"
-import { notDeleted, redirectIfNotAuthenticated } from "../utils"
+import { redirectIfNotAuthenticated } from "../utils/redirect"
+import { postIsNotDeleted } from "../utils/types"
 
 class Component extends React.Component<
   RouteProps,
@@ -25,7 +26,7 @@ class Component extends React.Component<
       async (client) => {
         const posts = await client.timeline.retrieveFeed(this.state.page)
 
-        this.setState({ posts: posts.filter(notDeleted) })
+        this.setState({ posts: posts.filter(postIsNotDeleted) })
       },
       { ...this.props }
     )

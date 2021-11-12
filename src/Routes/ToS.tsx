@@ -11,7 +11,8 @@ import { z } from "zod"
 
 import { dispatch } from "../socialvoid"
 import { RouteProps } from "../types"
-import { redirectIfAuthenticated, unparse } from "../utils"
+import { unparse } from "../utils/parser"
+import { redirectIfAuthenticated } from "../utils/redirect"
 
 class Component extends React.Component<
   RouteProps,

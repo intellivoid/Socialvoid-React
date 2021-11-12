@@ -9,7 +9,7 @@ import { Component } from "react"
 import { getDocument } from "../cache"
 import { dispatch } from "../socialvoid"
 import { NotDeletedPost } from "../types"
-import { unparse } from "../utils"
+import { unparse } from "../utils/parser"
 import "./Post.css"
 
 export default class Post extends Component<
