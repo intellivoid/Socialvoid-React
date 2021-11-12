@@ -5,12 +5,8 @@ export const client = new Client()
 
 export async function dispatch(
   func: (client: Client) => Promise<void> | void,
-  opts?: {
-    snackbar?: ProviderContext
-  }
+  snackbar?: ProviderContext
 ) {
-  const snackbar = opts?.snackbar
-
   try {
     await func(client)
   } catch (err) {

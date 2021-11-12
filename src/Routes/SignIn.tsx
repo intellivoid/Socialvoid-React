@@ -1,4 +1,4 @@
-import React from 'react'
+import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import Box from '@mui/material/Box'
@@ -15,10 +15,13 @@ import { RouteProps } from '../types'
 import { handleZodErrors } from '../utils/errors'
 import { redirectIfAuthenticated } from '../utils/redirect'
 
-class Component extends React.Component<RouteProps> {
-  submit(event: React.FormEvent<HTMLFormElement>) {
+export default function SignUp() {
+  const navigate = useNavigate()
+  const snackbar = useSnackbar()
+
+  const submit = (event: React.FormEvent<HTMLFormElement>) => {
     handleZodErrors(() => {
-      event.preventDefault() // prevent the browser from reloading the page
+      event.preventDefault()
 
       const data = new FormData(event.currentTarget)
 
@@ -32,72 +35,44 @@ class Component extends React.Component<RouteProps> {
           password: data.get('password'),
         })
 
-      dispatch(
-        async (client) => {
-          await client.newSession()
-          await client.session.authenticateUser(username, password)
-          this.props.navigate('/')
-        },
-        { ...this.props }
-      )
-    }, this.props)
+      dispatch(async (client) => {
+        await client.newSession()
+        await client.session.authenticateUser(username, password)
+        navigate('/')
+      }, snackbar)
+    }, snackbar)
   }
 
-  componentDidMount() {
-    dispatch(() => {}, {
-      ...this.props,
-    })
-  }
-
-  render() {
-    return (
-      <Box
-        component="form"
-        onSubmit={this.submit.bind(this)}
-        sx={{ mt: 3 }}
-        noValidate
-      >
-        <TextField
-          required
-          fullWidth
-          id="username"
-          label="Username"
-          name="username"
-          autoComplete="off"
-          autoFocus
-          sx={{ mb: 3 }}
-        />
-        <TextField
-          required
-          fullWidth
-          id="password"
-          label="Password"
-          name="password"
-          type="password"
-        />
-        <Button
-          type="submit"
-          fullWidth
-          variant="contained"
-          sx={{ mt: 3, mb: 2 }}
-        >
-          Sign In
-        </Button>
-        <Link href="/signup" variant="body2" sx={{ float: 'right' }}>
-          Don’t have an account?
-        </Link>
-      </Box>
-    )
-  }
-}
-
-export default function SignUp() {
-  const navigate = useNavigate()
-  const snackbar = useSnackbar()
-
-  React.useEffect(() => {
+  useEffect(() => {
     redirectIfAuthenticated(navigate)
   })
 
-  return <Component navigate={navigate} snackbar={snackbar} />
+  return (
+    <Box component="form" onSubmit={submit} sx={{ mt: 3 }} noValidate>
+      <TextField
+        required
+        fullWidth
+        id="username"
+        label="Username"
+        name="username"
+        autoComplete="off"
+        autoFocus
+        sx={{ mb: 3 }}
+      />
+      <TextField
+        required
+        fullWidth
+        id="password"
+        label="Password"
+        name="password"
+        type="password"
+      />
+      <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
+        Sign In
+      </Button>
+      <Link href="/signup" variant="body2" sx={{ float: 'right' }}>
+        Don’t have an account?
+      </Link>
+    </Box>
+  )
 }

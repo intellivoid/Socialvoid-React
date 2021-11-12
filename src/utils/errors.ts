@@ -1,3 +1,4 @@
+import { ProviderContext } from 'notistack'
 import { ZodError, defaultErrorMap, setErrorMap } from 'zod'
 
 import { RouteProps } from '../types'
@@ -17,7 +18,7 @@ setErrorMap((issue, _ctx) => {
   return defaultErrorMap(issue, _ctx)
 })
 
-export function handleZodErrors(func: () => void, props: RouteProps) {
+export function handleZodErrors(func: () => void, snackbar: ProviderContext) {
   try {
     func()
   } catch (err) {
@@ -29,7 +30,7 @@ export function handleZodErrors(func: () => void, props: RouteProps) {
     const fieldErrors = Object.values(flatten.fieldErrors)
 
     if (fieldErrors.length !== 0) {
-      props.snackbar.enqueueSnackbar(fieldErrors[0][0], {
+      snackbar.enqueueSnackbar(fieldErrors[0][0], {
         variant: 'warning',
         preventDuplicate: true,
       })
