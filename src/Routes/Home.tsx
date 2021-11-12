@@ -37,7 +37,7 @@ class Component extends React.Component<
     return (
       <>
         {this.state.posts.map((post) => (
-          <Post post={post} />
+          <Post post={post} sx={{ mt: 3 }} />
         ))}
       </>
     )
