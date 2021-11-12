@@ -59,6 +59,7 @@ class Component extends React.Component<
       <>
         <Typography
           variant="body1"
+          sx={{ mt: 3 }}
           dangerouslySetInnerHTML={{
             __html: unparse(
               this.state.document.text,

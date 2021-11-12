@@ -1,3 +1,4 @@
+import Box from "@mui/material/Box"
 import Button from "@mui/material/Button"
 import Link from "@mui/material/Link"
 import TextField from "@mui/material/TextField"
@@ -48,7 +49,12 @@ class Component extends React.Component<RouteProps> {
 
   render() {
     return (
-      <form noValidate onSubmit={(event) => this.submit(event)}>
+      <Box
+        component="form"
+        onSubmit={this.submit.bind(this)}
+        sx={{ mt: 3 }}
+        noValidate
+      >
         <TextField
           required
           fullWidth
@@ -78,7 +84,7 @@ class Component extends React.Component<RouteProps> {
         <Link href="/signup" variant="body2" sx={{ float: "right" }}>
           Don’t have an account?
         </Link>
-      </form>
+      </Box>
     )
   }
 }

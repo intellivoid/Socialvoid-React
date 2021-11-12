@@ -1,4 +1,4 @@
-import { Button, Link, TextField } from "@mui/material"
+import { Box, Button, Link, TextField } from "@mui/material"
 import { useSnackbar } from "notistack"
 import React from "react"
 import { useLocation, useNavigate } from "react-router"
@@ -72,7 +72,12 @@ class Component extends React.Component<RouteProps> {
 
   render() {
     return (
-      <form noValidate onSubmit={(event) => this.submit(event)}>
+      <Box
+        component="form"
+        onSubmit={this.submit.bind(this)}
+        sx={{ mt: 3 }}
+        noValidate
+      >
         <TextField
           required
           fullWidth
@@ -120,7 +125,7 @@ class Component extends React.Component<RouteProps> {
         <Link href="/signin" variant="body2" sx={{ float: "right" }}>
           Already have an account?
         </Link>
-      </form>
+      </Box>
     )
   }
 }
