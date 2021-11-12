@@ -1,10 +1,12 @@
+import React from 'react'
+
 import Container from '@mui/material/Container'
 import CssBaseline from '@mui/material/CssBaseline'
 import ThemeProvider from '@mui/material/styles/ThemeProvider'
 import createTheme from '@mui/material/styles/createTheme'
 import useMediaQuery from '@mui/material/useMediaQuery'
+
 import { SnackbarProvider } from 'notistack'
-import React from 'react'
 
 import Bar from './components/Bar'
 
