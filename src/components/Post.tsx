@@ -6,6 +6,8 @@ import CardActionArea from '@mui/material/CardActionArea'
 import CardContent from '@mui/material/CardContent'
 import CardHeader from '@mui/material/CardHeader'
 import CardMedia from '@mui/material/CardMedia'
+import ImageList from '@mui/material/ImageList'
+import ImageListItem from '@mui/material/ImageListItem'
 import Typography from '@mui/material/Typography'
 
 import moment from 'moment'
@@ -88,7 +90,11 @@ function PostView({ post }: { post: NotDeletedPost }) {
 
       {post.reposted_post && (
         <InnerPostFrame>
-          <PostView post={post} />
+          {postIsNotDeleted(post.reposted_post) ? (
+            <PostView post={post.reposted_post} />
+          ) : (
+            <DeletedPostView />
+          )}
         </InnerPostFrame>
       )}
     </>
@@ -96,15 +102,27 @@ function PostView({ post }: { post: NotDeletedPost }) {
 }
 
 export default function Post(props: PostProps) {
-  const body = postIsNotDeleted(props.post) ? (
-    <PostView post={props.post} />
+  const { post, navigate } = props
+
+  const body = postIsNotDeleted(post) ? (
+    <PostView post={post} />
   ) : (
     <DeletedPostView />
   )
 
   return (
     <PostFrame variant="outlined" {...props}>
-      {props.navigate ? <CardActionArea>{body}</CardActionArea> : body}
+      {navigate ? (
+        <CardActionArea
+          onClick={() =>
+            navigate('/post?id=' + encodeURIComponent(props.post.id))
+          }
+        >
+          {body}
+        </CardActionArea>
+      ) : (
+        body
+      )}
     </PostFrame>
   )
 }
