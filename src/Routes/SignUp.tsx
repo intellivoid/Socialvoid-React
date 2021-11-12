@@ -4,7 +4,7 @@ import Link from "@mui/material/Link"
 import TextField from "@mui/material/TextField"
 import { useSnackbar } from "notistack"
 import React from "react"
-import { useLocation, useNavigate } from "react-router"
+import { useLocation, useNavigate } from "react-router-dom"
 import { z } from "zod"
 
 import { dispatch } from "../socialvoid"
