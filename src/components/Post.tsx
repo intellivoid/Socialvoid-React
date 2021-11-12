@@ -16,21 +16,6 @@ import { postIsNotDeleted } from '../utils/types'
 
 type PostProps = CardProps & { post: NotDeletedPost; repost?: boolean }
 
-function getSubheader(props: PostProps) {
-  if (props.repost) {
-    return '@' + props.post.peer.username
-  }
-
-  return (
-    '@' +
-    props.post.peer.username +
-    ' · ' +
-    (props.post.reposted_post ? 'reposted' : 'posted') +
-    ' ' +
-    moment(props.post.posted_timestamp * 1000).fromNow()
-  )
-}
-
 export default class Post extends Component<
   PostProps,
   { attachmentSrcs: string[] }
