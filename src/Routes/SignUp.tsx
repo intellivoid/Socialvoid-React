@@ -32,6 +32,7 @@ export default function SignUp() {
           tosId: z.string().nonempty(),
           username: z.string().nonempty(),
           password: Password,
+          passwordConfirmation: z.string(),
           firstName: z.string().nonempty(),
           lastName: z.string().optional(),
         })
@@ -39,9 +40,18 @@ export default function SignUp() {
           tosId: query?.tosId,
           username: data.get('username'),
           password: data.get('password'),
+          passwordConfirmation: data.get('passwordConfirmation'),
           firstName: data.get('firstName'),
           lastName: data.get('lastName'),
         })
+
+      if (params.password !== params.passwordConfirmation) {
+        snackbar.enqueueSnackbar('Passwords don’t match.', {
+          variant: 'warning',
+          preventDuplicate: true,
+        })
+        return
+      }
 
       dispatch(async (client) => {
         await client.newSession()
@@ -107,6 +117,16 @@ export default function SignUp() {
         id="password"
         label="Password"
         name="password"
+        type="password"
+        autoComplete="off"
+        sx={{ mt: 3 }}
+      />
+      <TextField
+        required
+        fullWidth
+        id="passwordConfirmation"
+        label="Confirm password"
+        name="passwordConfirmation"
         type="password"
         autoComplete="off"
         sx={{ mt: 3 }}
