@@ -14,25 +14,32 @@ export default function Home() {
   const router = useRouter()
   const snackbar = useSnackbar()
 
-  const [posts, setPosts] = useState<NotDeletedPost[]>()
-  const [page, setPage] = useState(1)
+  const [state, setState] = useState<{
+    posts?: NotDeletedPost[]
+    page: number
+  }>({ page: 1 })
 
   useEffect(() => {
     redirectIfNotAuthenticated(router)
 
     dispatch(async (client) => {
-      const posts = (await client.timeline.retrieveFeed(page)).filter(
+      const posts = (await client.timeline.retrieveFeed(state.page)).filter(
         postNotDeleted
       )
 
-      setPosts(posts)
+      setState((state) => {
+        return {
+          posts: state.posts ? state.posts.concat(posts) : posts,
+          page: state.page + 1,
+        }
+      })
     }, snackbar)
-  }, [page])
+  }, [state.page])
 
   return (
     <>
-      {posts ? (
-        posts.map((post) => (
+      {state.posts ? (
+        state.posts.map((post) => (
           <Post key={post.id} post={post} router={router} sx={{ mt: 3 }} />
         ))
       ) : (
