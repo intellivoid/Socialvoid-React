@@ -8,7 +8,7 @@ setErrorMap((issue, _ctx) => {
 
   if (
     (issue.code === 'too_small' && issue.minimum === 1) ||
-    (issue.code === 'invalid_type' && issue.received === undefined)
+    (issue.code === 'invalid_type' && issue.received === 'undefined')
   ) {
     return { message: `${path} is empty.` }
   }
