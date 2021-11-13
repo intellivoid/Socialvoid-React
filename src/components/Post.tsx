@@ -6,8 +6,6 @@ import CardActionArea from '@mui/material/CardActionArea'
 import CardContent from '@mui/material/CardContent'
 import CardHeader from '@mui/material/CardHeader'
 import CardMedia from '@mui/material/CardMedia'
-import ImageList from '@mui/material/ImageList'
-import ImageListItem from '@mui/material/ImageListItem'
 import Typography from '@mui/material/Typography'
 
 import moment from 'moment'
